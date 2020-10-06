@@ -11,6 +11,7 @@
 		06C257BE252CB95F00ABA929 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C257BD252CB95F00ABA929 /* ViewController.swift */; };
 		06C257C3252CB96300ABA929 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06C257C2252CB96300ABA929 /* Assets.xcassets */; };
 		06C257C6252CB96300ABA929 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06C257C4252CB96300ABA929 /* LaunchScreen.storyboard */; };
+		35F61F992C83059E5CAC5B10 /* Pods_Hello_Eternity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFDA3CBDAE76FA2AA9388A5 /* Pods_Hello_Eternity.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,9 @@
 		06C257C2252CB96300ABA929 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06C257C5252CB96300ABA929 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06C257C7252CB96300ABA929 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6188DB9552473FE9046D2282 /* Pods-Hello Eternity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hello Eternity.release.xcconfig"; path = "Target Support Files/Pods-Hello Eternity/Pods-Hello Eternity.release.xcconfig"; sourceTree = "<group>"; };
+		ADFDA3CBDAE76FA2AA9388A5 /* Pods_Hello_Eternity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hello_Eternity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C044FA886559E2D9E1BAC494 /* Pods-Hello Eternity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hello Eternity.debug.xcconfig"; path = "Target Support Files/Pods-Hello Eternity/Pods-Hello Eternity.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35F61F992C83059E5CAC5B10 /* Pods_Hello_Eternity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +43,8 @@
 			children = (
 				06C257BA252CB95F00ABA929 /* Hello Eternity */,
 				06C257B9252CB95F00ABA929 /* Products */,
+				A3D57FF4F0F652342EDCB84E /* Pods */,
+				5C2518C5ED50F6278A932CE2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,6 +76,24 @@
 			path = Resourses;
 			sourceTree = "<group>";
 		};
+		5C2518C5ED50F6278A932CE2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ADFDA3CBDAE76FA2AA9388A5 /* Pods_Hello_Eternity.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A3D57FF4F0F652342EDCB84E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C044FA886559E2D9E1BAC494 /* Pods-Hello Eternity.debug.xcconfig */,
+				6188DB9552473FE9046D2282 /* Pods-Hello Eternity.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -76,9 +101,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 06C257CA252CB96300ABA929 /* Build configuration list for PBXNativeTarget "Hello Eternity" */;
 			buildPhases = (
+				6AA14E7DDB53B51A3677A776 /* [CP] Check Pods Manifest.lock */,
 				06C257B4252CB95F00ABA929 /* Sources */,
 				06C257B5252CB95F00ABA929 /* Frameworks */,
 				06C257B6252CB95F00ABA929 /* Resources */,
+				0347B154C3F61E05E445C975 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -96,10 +123,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					06C257B7252CB95F00ABA929 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1200;
 					};
 				};
 			};
@@ -132,6 +160,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0347B154C3F61E05E445C975 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hello Eternity/Pods-Hello Eternity-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hello Eternity/Pods-Hello Eternity-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hello Eternity/Pods-Hello Eternity-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6AA14E7DDB53B51A3677A776 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Hello Eternity-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		06C257B4252CB95F00ABA929 /* Sources */ = {
@@ -183,6 +253,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -244,6 +315,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -275,6 +347,7 @@
 		};
 		06C257CB252CB96300ABA929 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C044FA886559E2D9E1BAC494 /* Pods-Hello Eternity.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -285,13 +358,14 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Hello-Eternity";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		06C257CC252CB96300ABA929 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6188DB9552473FE9046D2282 /* Pods-Hello Eternity.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -302,7 +376,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Hello-Eternity";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

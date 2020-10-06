@@ -1,0 +1,8 @@
+# platform :ios, '10.0'
+
+target 'Hello Eternity' do
+  use_frameworks!
+
+  # Pods for Hello Eternity
+  pod 'SnapKit'
+end
