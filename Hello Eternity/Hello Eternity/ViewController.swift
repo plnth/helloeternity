@@ -4,7 +4,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .cyan
+        view.backgroundColor = UIColor(named: "peacockBlue")
     }
 }
 
