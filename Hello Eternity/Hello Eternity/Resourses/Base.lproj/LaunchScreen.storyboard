@@ -17,14 +17,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="6BQ-iE-Hna">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="906"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="6BQ-iE-Hna" secondAttribute="trailing" id="0w9-yw-L3F"/>
-                            <constraint firstAttribute="bottom" secondItem="6BQ-iE-Hna" secondAttribute="bottom" id="DLM-xv-VuO"/>
+                            <constraint firstAttribute="bottom" secondItem="6BQ-iE-Hna" secondAttribute="bottom" constant="-10" id="DLM-xv-VuO"/>
                             <constraint firstItem="6BQ-iE-Hna" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="MRx-LM-KZ5"/>
                             <constraint firstItem="6BQ-iE-Hna" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="hCb-U1-pTI"/>
                         </constraints>
@@ -36,6 +36,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreen" width="768" height="768"/>
+        <image name="LaunchScreen" width="769" height="768"/>
     </resources>
 </document>
