@@ -1,8 +1,20 @@
 import UIKit
 
-class APODViewController: UIViewController {
+class APODViewController: UITabBarController {
     
-    let viewModel: APODViewModel
+    private let viewModel: APODViewModel
+    
+    private lazy var todayController: TodayViewController = {
+        let viewModel = self.viewModel.createTodayViewModel()
+        let vc = TodayViewController(viewModel: viewModel)
+        return vc
+    }()
+    
+    private lazy var savedController: SavedViewController = {
+        let viewModel = self.viewModel.createSavedViewModel()
+        let vc = SavedViewController(viewModel: viewModel)
+        return vc
+    }()
     
     init(viewModel: APODViewModel) {
         self.viewModel = viewModel
@@ -16,5 +28,6 @@ class APODViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Asset.skyBlue.color
+        self.viewControllers = [self.todayController, self.savedController]
     }
 }

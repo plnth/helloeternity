@@ -9,6 +9,14 @@ final class APODViewModel {
         self.router = router
     }
     
+    func createTodayViewModel() -> TodayViewModel {
+        return TodayViewModel(router: self.router)
+    }
+    
+    func createSavedViewModel() -> SavedViewModel {
+        return SavedViewModel(router: self.router)
+    }
+    
     func onClose() {
         router.close()
     }

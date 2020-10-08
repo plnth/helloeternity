@@ -40,7 +40,7 @@ final class MainCollectionViewCell: UICollectionViewCell, ReusableView {
             make.edges.lessThanOrEqualToSuperview()
             make.center.equalToSuperview()
         }
-        self.titleLabel.text = "NASA Astronomy Picture of the Day"
+        self.titleLabel.text = L10n.mainMenuAPOD
     }
 }
 

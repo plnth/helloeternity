@@ -2,3 +2,10 @@
   Localizable.strings
   Hello Eternity
 */
+
+//Main menu
+"main_menu_APOD" = "NASA Astronomy Picture of the Day";
+
+//APOD
+"apod_save_HD_image" = "Save HD image to gallery";
+"apod_save" = "Save";
