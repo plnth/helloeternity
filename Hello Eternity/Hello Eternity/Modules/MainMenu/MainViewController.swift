@@ -2,19 +2,27 @@ import UIKit
 
 class MainViewController: UIViewController {
         
-    let viewModel: MainViewModel
+    private let viewModel: MainViewModel
+    private lazy var mainCollectionView = MainCollectionView(collectionViewLayout: self.collectionViewLayout)
     
-    private lazy var apodButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .cyan
-        button.setTitle("APOD", for: .normal)
-        button.addTarget(self, action: #selector(onShowAPOD), for: .touchUpInside)
-        return button
-    }()
+    private var collectionViewLayout: UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
+        let cellWidthHeightConstraint = UIScreen.main.bounds.width * 0.45
+        layout.itemSize = CGSize(width: cellWidthHeightConstraint, height: cellWidthHeightConstraint)
+        
+        return layout
+    }
     
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
+        self.mainCollectionView.dataSource = self
+        self.mainCollectionView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -23,14 +31,13 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "peacockBlue")
-        view.addSubview(apodButton)
+        view.backgroundColor = Asset.peacockBlue.color
+        view.addSubview(mainCollectionView)
+        mainCollectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.reuseIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        apodButton.frame.size = CGSize(width: 100, height: 50)
-        apodButton.center = view.center
     }
     
     //for test
@@ -39,3 +46,18 @@ class MainViewController: UIViewController {
     }
 }
 
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.reuseIdentifier, for: indexPath) as? MainCollectionViewCell else { return UICollectionViewCell() }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.viewModel.onOpedAPODModule()
+    }
+}
