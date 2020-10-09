@@ -1,0 +1,20 @@
+strings:
+   inputs:
+     - Hello Eternity/Resources/Base.lproj/Localizable.strings
+   outputs:
+     - templateName: structured-swift5
+       output: Hello Eternity/Generated/Strings.swift
+
+xcassets:
+   inputs:
+     - Hello Eternity/Resources/Assets.xcassets
+   outputs:
+     - templateName: swift5
+       output: Hello Eternity/Generated/Assets.swift
+
+colors:
+  inputs:
+    - Hello Eternity/Resources/colors.txt
+  outputs:
+    - templateName: swift5
+      output: Hello Eternity/Generated/Colors.swift

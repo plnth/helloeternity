@@ -88,3 +88,8 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+# Ignore Generated 
+Hello\ Eternity/Hello\ Eternity/Generated
+Hello\ Eternity/Hello\ Eternity.xcworkspace
+Hello\ Eternity/Pods
