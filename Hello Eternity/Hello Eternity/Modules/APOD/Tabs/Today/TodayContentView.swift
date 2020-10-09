@@ -7,6 +7,7 @@ final class TodayContentView: UIView {
         label.textColor = Asset.deepBlue.color
         label.textAlignment = .center
         label.numberOfLines = 0
+        label.font = .boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .largeTitle).pointSize)
         return label
     }()
     
@@ -14,12 +15,12 @@ final class TodayContentView: UIView {
         let label = UILabel()
         label.textColor = Asset.deepBlue.color
         label.textAlignment = .left
+        label.font = .systemFont(ofSize: UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
         return label
     }()
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -28,6 +29,7 @@ final class TodayContentView: UIView {
         button.backgroundColor = Asset.skyBlue.color
         button.setTitle(L10n.apodSaveHDImage, for: .normal)
         button.setTitleColor(Asset.deepBlue.color, for: .normal)
+        button.setTitleColor(Asset.purpleBlue.color, for: .highlighted)
         button.layer.cornerRadius = 8
         return button
     }()
@@ -39,6 +41,7 @@ final class TodayContentView: UIView {
         textView.textColor = Asset.deepBlue.color
         textView.isScrollEnabled = false
         textView.isUserInteractionEnabled = false
+        textView.font = .systemFont(ofSize: UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
         return textView
     }()
     
@@ -47,9 +50,12 @@ final class TodayContentView: UIView {
         button.backgroundColor = Asset.skyBlue.color
         button.setTitle(L10n.apodSave, for: .normal)
         button.setTitleColor(Asset.deepBlue.color, for: .normal)
+        button.setTitleColor(Asset.purpleBlue.color, for: .highlighted)
         button.layer.cornerRadius = 8
         return button
     }()
+    
+    private var imageViewRatio: CGFloat?
     
     convenience init(frame: CGRect, title: String, date: String, image: UIImage, explanation: String) {
         self.init(frame: frame)
@@ -58,9 +64,20 @@ final class TodayContentView: UIView {
         
         self.titleLabel.text = title
         self.dateLabel.text = date
+        
         self.imageView.image = image
+        self.imageViewRatio = image.size.width / image.size.height
+        
         self.explanationTextView.text = explanation
         self.setupSubviews()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let textHeight = self.explanationTextView.contentSize.height
+        self.explanationTextView.frame.size.height = textHeight
+        let difference = self.explanationTextView.frame.size.height - (self.frame.size.height - self.explanationTextView.frame.origin.y)
+        self.frame.size.height += difference + saveButton.frame.size.height + 15
     }
     
     private func addSubviews() {
@@ -88,23 +105,24 @@ final class TodayContentView: UIView {
         }
         
         self.imageView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            let width = UIScreen.main.bounds.width * 0.9
+            make.centerX.equalToSuperview()
             make.top.equalTo(self.dateLabel.snp.bottom).offset(5)
-            make.height.lessThanOrEqualTo(300)
+            make.width.equalTo(width)
+            make.height.equalTo(width / (self.imageViewRatio ?? 1))
         }
         
         self.saveHDImageButton.snp.makeConstraints { make in
-            make.top.equalTo(self.imageView.snp.bottom).offset(5)
+            make.top.equalTo(self.imageView.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
             make.height.equalTo(30)
             make.width.equalToSuperview().multipliedBy(0.75)
         }
         
-        //TODO
         self.explanationTextView.snp.makeConstraints { make in
             make.top.equalTo(self.saveHDImageButton.snp.bottom).offset(5)
             make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(200)
+            make.height.greaterThanOrEqualTo(1)
         }
         
         self.saveButton.snp.makeConstraints { make in
