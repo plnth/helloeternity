@@ -14,19 +14,41 @@ class TodayViewController: UIViewController {
         return scrollView
     }()
     
-    private lazy var contentView: TodayContentView = {
-        return TodayContentView(frame: self.view.bounds,
-                                title: "Mare Frigoris",
-                                date: "08.10.2020",
-                                image: Asset.moon.image,
-                                explanation: L10n.apodLargeTestString)
-    }()
+    private var apodContentView: TodayContentView?
+    private let activityIndicator = UIActivityIndicatorView()
+    
+    init(viewModel: TodayViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        
+        self.tabBarItem = UITabBarItem(title: L10n.apodTabToday, image: nil, selectedImage: nil)
+    
+        self.viewModel.fetchTodayPicture { (data, error) in
+            guard let apodData = data else {
+                if let error = error {
+                    debugPrint(error)
+                }
+                return
+            }
+            
+            self.createContentView(with: apodData)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Asset.peacockBlue.color
         self.view.addSubview(self.contentScrollView)
-        self.contentScrollView.addSubview(self.contentView)
+        
+        self.view.addSubview(self.activityIndicator)
+        self.activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        self.activityIndicator.startAnimating()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,17 +60,26 @@ class TodayViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.contentScrollView.contentSize = self.contentView.frame.size
+        if let contentView = self.apodContentView {
+            self.contentScrollView.contentSize = contentView.frame.size
+        }
     }
     
-    init(viewModel: TodayViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+    private func createContentView(with apodData: APODData) {
+        self.apodContentView = TodayContentView(
+            frame: UIScreen.main.bounds,
+            title: apodData.title,
+            date: apodData.date,
+            image: Asset.moon.image,
+            explanation: apodData.explanation
+        )
         
-        self.tabBarItem = UITabBarItem(title: L10n.apodTabToday, image: nil, selectedImage: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        if let contentView = self.apodContentView {
+            DispatchQueue.main.async { [weak self] in
+                self?.activityIndicator.stopAnimating()
+                self?.activityIndicator.removeFromSuperview()
+                self?.contentScrollView.addSubview(contentView)
+            }
+        }
     }
 }
