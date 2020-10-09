@@ -13,7 +13,7 @@ class SavedViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
-        self.tabBarItem = UITabBarItem(title: "Saved", image: nil, selectedImage: nil)
+        self.tabBarItem = UITabBarItem(title: L10n.apodTabSaved, image: nil, selectedImage: nil)
     }
     
     required init?(coder: NSCoder) {

@@ -77,7 +77,7 @@ final class TodayContentView: UIView {
         let textHeight = self.explanationTextView.contentSize.height
         self.explanationTextView.frame.size.height = textHeight
         let difference = self.explanationTextView.frame.size.height - (self.frame.size.height - self.explanationTextView.frame.origin.y)
-        self.frame.size.height += difference + saveButton.frame.size.height + 15
+        self.frame.size.height += difference + saveButton.frame.size.height + 2 * AppConstants.LayoutConstants.commonSpacingOffset
     }
     
     private func addSubviews() {
@@ -90,45 +90,49 @@ final class TodayContentView: UIView {
     }
     
     private func setupSubviews() {
+        
+        let hvConvUnit = AppConstants.LayoutConstants.hvConvUnit
+        let commonSpacingOffset = AppConstants.LayoutConstants.commonSpacingOffset
+        
         self.titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(20)
-            make.leading.trailing.equalToSuperview().inset(40)
-            make.height.greaterThanOrEqualTo(50)
+            make.top.equalToSuperview().inset(2 * hvConvUnit)
+            make.leading.trailing.equalToSuperview().inset(5 * hvConvUnit)
+            make.height.greaterThanOrEqualTo(6 * hvConvUnit)
         }
         
         self.dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(commonSpacingOffset)
             make.leading.equalTo(self.titleLabel)
             make.width.equalTo(self.titleLabel).dividedBy(2)
-            make.height.equalTo(25)
+            make.height.equalTo(3 * hvConvUnit)
         }
         
         self.imageView.snp.makeConstraints { make in
             let width = UIScreen.main.bounds.width * 0.9
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.dateLabel.snp.bottom).offset(5)
+            make.top.equalTo(self.dateLabel.snp.bottom).offset(commonSpacingOffset)
             make.width.equalTo(width)
             make.height.equalTo(width / (self.imageViewRatio ?? 1))
         }
         
         self.saveHDImageButton.snp.makeConstraints { make in
-            make.top.equalTo(self.imageView.snp.bottom).offset(8)
+            make.top.equalTo(self.imageView.snp.bottom).offset(commonSpacingOffset)
             make.centerX.equalToSuperview()
-            make.height.equalTo(30)
+            make.height.equalTo(4 * hvConvUnit)
             make.width.equalToSuperview().multipliedBy(0.75)
         }
         
         self.explanationTextView.snp.makeConstraints { make in
-            make.top.equalTo(self.saveHDImageButton.snp.bottom).offset(5)
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(self.saveHDImageButton.snp.bottom).offset(commonSpacingOffset)
+            make.leading.trailing.equalToSuperview().inset(AppConstants.LayoutConstants.commonLeadingTrailingInset)
             make.height.greaterThanOrEqualTo(1)
         }
         
         self.saveButton.snp.makeConstraints { make in
-            make.top.equalTo(self.explanationTextView.snp.bottom).offset(5)
+            make.top.equalTo(self.explanationTextView.snp.bottom).offset(commonSpacingOffset)
             make.centerX.equalToSuperview()
-            make.height.equalTo(30)
+            make.height.equalTo(4 * hvConvUnit)
             make.width.equalToSuperview().dividedBy(4)
         }
     }
