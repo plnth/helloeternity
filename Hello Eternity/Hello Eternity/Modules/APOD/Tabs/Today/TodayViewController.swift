@@ -23,7 +23,7 @@ class TodayViewController: UIViewController {
         
         self.tabBarItem = UITabBarItem(title: L10n.apodTabToday, image: nil, selectedImage: nil)
     
-        self.viewModel.fetchTodayPicture { (data, error) in
+        self.viewModel.fetchTodayPictureInfo { (data, error) in
             guard let apodData = data else {
                 if let error = error {
                     debugPrint(error)
@@ -70,15 +70,29 @@ class TodayViewController: UIViewController {
             frame: UIScreen.main.bounds,
             title: apodData.title,
             date: apodData.date,
-            image: Asset.moon.image,
             explanation: apodData.explanation
         )
+        
+        self.setupImageFromURL(apodData.url)
         
         if let contentView = self.apodContentView {
             DispatchQueue.main.async { [weak self] in
                 self?.activityIndicator.stopAnimating()
                 self?.activityIndicator.removeFromSuperview()
                 self?.contentScrollView.addSubview(contentView)
+            }
+        }
+    }
+    
+    private func setupImageFromURL(_ url: String) {
+
+        self.viewModel.fetchTodayPictureFromURL(pictureURL: url) { [weak self] (data, error) in
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self?.apodContentView?.updateImage(with: image)
+                }
+            } else if let error = error {
+                debugPrint(error)
             }
         }
     }

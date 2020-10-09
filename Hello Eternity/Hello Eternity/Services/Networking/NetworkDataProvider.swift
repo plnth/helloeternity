@@ -5,8 +5,8 @@ class NetworkDataProvider {
     
     private let provider = MoyaProvider<MoyaAPI.Endpoint>()
     
-    func performTodayPictureRequest(completion: @escaping ((APODData?, Error?) -> Void)) {
-        self.provider.request(.fetchTodayPicture) { result in
+    func performTodayPictureInfoRequest(completion: @escaping ((APODData?, Error?) -> Void)) {
+        self.provider.request(.fetchTodayPictureInfo) { result in
             switch result {
             case .success(let data):
                 do {
@@ -31,6 +31,16 @@ class NetworkDataProvider {
                 completion(nil, error)
             }
         }
-        
+    }
+    
+    func performTodayPictureFromURLRequest(pictureURL: String, completion: @escaping ((Data?, Error?) -> Void)) {
+        self.provider.request(.fetchTodayPictureFromURL(PictureFromURLRequest(path: pictureURL))) { result in
+            switch result {
+            case .success(let imageData):
+                completion(imageData.data, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
+        }
     }
 }

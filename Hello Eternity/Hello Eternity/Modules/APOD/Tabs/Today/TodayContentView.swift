@@ -2,6 +2,8 @@ import UIKit
 
 final class TodayContentView: UIView {
     
+    private let activityIndicator = UIActivityIndicatorView()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.deepBlue.color
@@ -21,6 +23,8 @@ final class TodayContentView: UIView {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = Asset.earthEyesHalfOpened.image
+        imageView.addSubview(self.activityIndicator)
         return imageView
     }()
     
@@ -55,18 +59,13 @@ final class TodayContentView: UIView {
         return button
     }()
     
-    private var imageViewRatio: CGFloat?
-    
-    convenience init(frame: CGRect, title: String, date: String, image: UIImage, explanation: String) {
+    convenience init(frame: CGRect, title: String, date: String, explanation: String) {
         self.init(frame: frame)
         
         self.addSubviews()
         
         self.titleLabel.text = title
         self.dateLabel.text = date
-        
-        self.imageView.image = image
-        self.imageViewRatio = image.size.width / image.size.height
         
         self.explanationTextView.text = explanation
         self.setupSubviews()
@@ -109,12 +108,16 @@ final class TodayContentView: UIView {
         }
         
         self.imageView.snp.makeConstraints { make in
-            let width = UIScreen.main.bounds.width * 0.9
+            let width = UIScreen.main.bounds.width * 0.5
             make.centerX.equalToSuperview()
             make.top.equalTo(self.dateLabel.snp.bottom).offset(commonSpacingOffset)
-            make.width.equalTo(width)
-            make.height.equalTo(width / (self.imageViewRatio ?? 1))
+            make.width.height.equalTo(width)
         }
+        
+        self.activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        self.activityIndicator.startAnimating()
         
         self.saveHDImageButton.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(commonSpacingOffset)
@@ -135,5 +138,22 @@ final class TodayContentView: UIView {
             make.height.equalTo(4 * hvConvUnit)
             make.width.equalToSuperview().dividedBy(4)
         }
+    }
+    
+    func updateImage(with image: UIImage) {
+        
+        let imageRatio = image.size.width / image.size.height
+        
+        self.imageView.snp.remakeConstraints { make in
+            let width = UIScreen.main.bounds.width * 0.9
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.dateLabel.snp.bottom).offset(AppConstants.LayoutConstants.commonSpacingOffset)
+            make.width.equalTo(width)
+            make.height.equalTo(width / imageRatio)
+        }
+        
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.removeFromSuperview()
+        self.imageView.image = image
     }
 }

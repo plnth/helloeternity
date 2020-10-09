@@ -5,14 +5,25 @@ final class MoyaAPI {
     
     enum Endpoint: TargetType {
         
-        case fetchTodayPicture
+        case fetchTodayPictureInfo
+        case fetchTodayPictureFromURL(PictureFromURLRequest)
         
         var baseURL: URL {
-            return APIConstants.APOD.baseURL
+            switch self {
+            case .fetchTodayPictureInfo:
+                return APIConstants.APOD.basePlanetaryURL
+            case .fetchTodayPictureFromURL:
+                return APIConstants.APOD.baseImageURL
+            }
         }
     
         var path: String {
-            return ""
+            switch self {
+            case .fetchTodayPictureInfo:
+                return ""
+            case .fetchTodayPictureFromURL(let request):
+                return request.path
+            }
         }
     
         var method: Moya.Method {
@@ -24,7 +35,12 @@ final class MoyaAPI {
         }
     
         var task: Task {
-            return .requestParameters(parameters: ["api_key" : "DEMO_KEY"], encoding: URLEncoding())
+            switch self {
+            case .fetchTodayPictureInfo:
+                return .requestParameters(parameters: ["api_key" : "DEMO_KEY"], encoding: URLEncoding())
+            case .fetchTodayPictureFromURL:
+                return .requestPlain
+            }
         }
     
         var headers: [String : String]? {
