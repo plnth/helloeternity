@@ -23,15 +23,13 @@ class TodayViewController: UIViewController {
         
         self.tabBarItem = UITabBarItem(title: L10n.apodTabToday, image: nil, selectedImage: nil)
     
-        self.viewModel.fetchTodayPictureInfo { (data, error) in
-            guard let apodData = data else {
-                if let error = error {
-                    debugPrint(error)
-                }
-                return
+        self.viewModel.fetchTodayPictureInfo { result in
+            switch result {
+            case .success(let apodData):
+                self.createContentView(with: apodData)
+            case .failure(let error):
+                debugPrint(error)
             }
-            
-            self.createContentView(with: apodData)
         }
     }
     
@@ -86,12 +84,15 @@ class TodayViewController: UIViewController {
     
     private func setupImageFromURL(_ url: String) {
 
-        self.viewModel.fetchTodayPictureFromURL(pictureURL: url) { [weak self] (data, error) in
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self?.apodContentView?.updateImage(with: image)
+        self.viewModel.fetchTodayPictureFromURL(pictureURL: url) { [weak self] result in
+            switch result {
+            case .success(let imageData):
+                if let image = UIImage(data: imageData) {
+                    DispatchQueue.main.async {
+                        self?.apodContentView?.updateImage(with: image)
+                    }
                 }
-            } else if let error = error {
+            case .failure(let error):
                 debugPrint(error)
             }
         }

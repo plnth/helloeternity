@@ -5,42 +5,42 @@ class NetworkDataProvider {
     
     private let provider = MoyaProvider<MoyaAPI.Endpoint>()
     
-    func performTodayPictureInfoRequest(completion: @escaping ((APODData?, Error?) -> Void)) {
+    func performTodayPictureInfoRequest(completion: @escaping ((Result<APODData, MoyaError>) -> Void)) {
+        
         self.provider.request(.fetchTodayPictureInfo) { result in
-            switch result {
-            case .success(let data):
-                do {
-                    if let mappedJSON = try data.mapJSON() as? [String : String] {
-                        let apodData = mappedJSON.map { json -> APODData in
-                            
-                            return APODData(date: mappedJSON["date"] ?? "",
-                                            explanation: mappedJSON["explanation"] ?? "",
-                                            hdurl: mappedJSON["hdurl"] ?? "",
-                                            title: mappedJSON["title"] ?? "",
-                                            url: mappedJSON["url"] ?? "")
-                        }.first
-                        completion(apodData, nil)
-                    }
-                    
-                } catch {
-                    debugPrint(error)
-                    completion(nil, error)
-                }
-            case .failure(let error):
-                debugPrint(error)
-                completion(nil, error)
+            
+            let convertedResult = result.mapError { error in
+                return MoyaError.underlying(error, nil)
             }
+            
+            .flatMap { response -> Result<APODData, MoyaError> in
+                guard let json = try? JSONSerialization.jsonObject(with: response.data, options: []),
+                      let jsonDictionary = json as? [String: String] else {
+                    return .failure(MoyaError.jsonMapping(response))
+                }
+                
+                let apodData = APODData(
+                    date: jsonDictionary["date"] ?? "",
+                    explanation: jsonDictionary["explanation"] ?? "",
+                    hdurl: jsonDictionary["hdurl"] ?? "",
+                    title: jsonDictionary["title"] ?? "",
+                    url: jsonDictionary["url"] ?? "")
+                return .success(apodData)
+            }
+            
+            completion(convertedResult)
         }
     }
     
-    func performTodayPictureFromURLRequest(pictureURL: String, completion: @escaping ((Data?, Error?) -> Void)) {
+    func performTodayPictureFromURLRequest(pictureURL: String, completion: @escaping ((Result<Data, MoyaError>) -> Void)) {
         self.provider.request(.fetchTodayPictureFromURL(PictureFromURLRequest(path: pictureURL))) { result in
-            switch result {
-            case .success(let imageData):
-                completion(imageData.data, nil)
-            case .failure(let error):
-                completion(nil, error)
+            let convertedResult = result.mapError { error in
+                return MoyaError.underlying(error, nil)
             }
+            .flatMap { image in
+                return .success(image.data)
+            }
+            completion(convertedResult)
         }
     }
 }
