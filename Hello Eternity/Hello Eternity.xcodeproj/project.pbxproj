@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		062A3B592530719200B2A5D9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B582530719200B2A5D9 /* API.swift */; };
+		062A3B5D2530719F00B2A5D9 /* MoyaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B5C2530719F00B2A5D9 /* MoyaAPI.swift */; };
+		062A3B64253072DB00B2A5D9 /* APODData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B63253072DB00B2A5D9 /* APODData.swift */; };
+		062A3B68253074C500B2A5D9 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B67253074C500B2A5D9 /* APIConstants.swift */; };
+		062A3B6B253076D400B2A5D9 /* NetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B6A253076D400B2A5D9 /* NetworkDataProvider.swift */; };
+		062A3B6F2530931200B2A5D9 /* PictureFromURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B6E2530931200B2A5D9 /* PictureFromURLRequest.swift */; };
+		062A3B732530A03C00B2A5D9 /* String+deletingPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B722530A03C00B2A5D9 /* String+deletingPrefix.swift */; };
 		0671D1FB252EFB800087EC9F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0671D1FA252EFB800087EC9F /* Router.swift */; };
 		0671D1FE252EFB890087EC9F /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0671D1FD252EFB890087EC9F /* Animator.swift */; };
 		0671D203252EFBCC0087EC9F /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0671D202252EFBCC0087EC9F /* Transition.swift */; };
@@ -41,6 +48,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		062A3B582530719200B2A5D9 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		062A3B5C2530719F00B2A5D9 /* MoyaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaAPI.swift; sourceTree = "<group>"; };
+		062A3B63253072DB00B2A5D9 /* APODData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODData.swift; sourceTree = "<group>"; };
+		062A3B67253074C500B2A5D9 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		062A3B6A253076D400B2A5D9 /* NetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataProvider.swift; sourceTree = "<group>"; };
+		062A3B6E2530931200B2A5D9 /* PictureFromURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureFromURLRequest.swift; sourceTree = "<group>"; };
+		062A3B722530A03C00B2A5D9 /* String+deletingPrefix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+deletingPrefix.swift"; sourceTree = "<group>"; };
 		0671D1FA252EFB800087EC9F /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		0671D1FD252EFB890087EC9F /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		0671D202252EFBCC0087EC9F /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
@@ -90,6 +104,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		062A3B572530716D00B2A5D9 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				062A3B6D253092F400B2A5D9 /* Requests */,
+				062A3B582530719200B2A5D9 /* API.swift */,
+				062A3B5C2530719F00B2A5D9 /* MoyaAPI.swift */,
+				062A3B6A253076D400B2A5D9 /* NetworkDataProvider.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		062A3B62253072B400B2A5D9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				062A3B63253072DB00B2A5D9 /* APODData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		062A3B6D253092F400B2A5D9 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				062A3B6E2530931200B2A5D9 /* PictureFromURLRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
 		0671D1F9252EFB420087EC9F /* Routing */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				067EB86F252F2D0C00230739 /* AppConstants.swift */,
+				062A3B67253074C500B2A5D9 /* APIConstants.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -152,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				067EB873252F2DC300230739 /* ReusableView.swift */,
+				062A3B722530A03C00B2A5D9 /* String+deletingPrefix.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -169,6 +212,7 @@
 		067EB88E252F480A00230739 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				062A3B572530716D00B2A5D9 /* Networking */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -225,6 +269,7 @@
 				06C257BB252CB95F00ABA929 /* AppDelegate.swift */,
 				067EB885252F43C500230739 /* Generated */,
 				067EB872252F2DA000230739 /* Extensions */,
+				062A3B62253072B400B2A5D9 /* Model */,
 				0671D20B252F06860087EC9F /* Modules */,
 				0671D1F9252EFB420087EC9F /* Routing */,
 				06C257CD252CBBF500ABA929 /* Resources */,
@@ -393,17 +438,23 @@
 			files = (
 				067EB8B8252F534900230739 /* TodayContentView.swift in Sources */,
 				06A4D148252F108A00543AB4 /* APODViewModel.swift in Sources */,
+				062A3B6F2530931200B2A5D9 /* PictureFromURLRequest.swift in Sources */,
 				067EB870252F2D0C00230739 /* AppConstants.swift in Sources */,
 				0671D209252EFBE40087EC9F /* ModalTransition.swift in Sources */,
 				0671D20E252F080A0087EC9F /* MainRouter.swift in Sources */,
 				06A4D14B252F117B00543AB4 /* APODRouter.swift in Sources */,
 				067EB889252F43C500230739 /* Strings.swift in Sources */,
+				062A3B64253072DB00B2A5D9 /* APODData.swift in Sources */,
+				062A3B592530719200B2A5D9 /* API.swift in Sources */,
+				062A3B5D2530719F00B2A5D9 /* MoyaAPI.swift in Sources */,
 				0671D203252EFBCC0087EC9F /* Transition.swift in Sources */,
 				0671D206252EFBD70087EC9F /* PushTransition.swift in Sources */,
+				062A3B6B253076D400B2A5D9 /* NetworkDataProvider.swift in Sources */,
 				06A4D14E252F119800543AB4 /* APODViewController.swift in Sources */,
 				0671D1FE252EFB890087EC9F /* Animator.swift in Sources */,
 				067EB8AA252F4DD700230739 /* TodayViewController.swift in Sources */,
 				067EB88B252F43C500230739 /* Colors.swift in Sources */,
+				062A3B732530A03C00B2A5D9 /* String+deletingPrefix.swift in Sources */,
 				067EB874252F2DC300230739 /* ReusableView.swift in Sources */,
 				067E433E252F09660033F6E2 /* MainModuleBuilder.swift in Sources */,
 				06A4D145252F101800543AB4 /* APODModule.swift in Sources */,
@@ -414,6 +465,7 @@
 				06B69ADC252E0E8D00CE87DA /* MainCollectionView.swift in Sources */,
 				067EB8B0252F4E5100230739 /* TodayViewModel.swift in Sources */,
 				067EB8B3252F4E6E00230739 /* SavedViewModel.swift in Sources */,
+				062A3B68253074C500B2A5D9 /* APIConstants.swift in Sources */,
 				067EB88A252F43C500230739 /* Assets.swift in Sources */,
 				067EB8AD252F4DFB00230739 /* SavedViewController.swift in Sources */,
 				06C257BC252CB95F00ABA929 /* AppDelegate.swift in Sources */,
