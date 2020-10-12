@@ -1,5 +1,5 @@
 import Foundation
 
 protocol API {
-    func fetchTodayPicture() -> APODData
+    func fetchTodayPicture() -> APODDataFromAPI
 }

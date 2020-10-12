@@ -63,21 +63,25 @@ class TodayViewController: UIViewController {
         }
     }
     
-    private func createContentView(with apodData: APODData) {
+    private func createContentView(with apodData: APOD) {
         self.apodContentView = TodayContentView(
             frame: UIScreen.main.bounds,
-            title: apodData.title,
-            date: apodData.date,
-            explanation: apodData.explanation
+            title: apodData.title ?? "",
+            date: apodData.date ?? "",
+            explanation: apodData.explanation ?? ""
         )
-        
-        self.setupImageFromURL(apodData.url)
+        debugPrint(NSHomeDirectory())
+        self.setupImageFromURL(apodData.url!)
         
         if let contentView = self.apodContentView {
             DispatchQueue.main.async { [weak self] in
-                self?.activityIndicator.stopAnimating()
-                self?.activityIndicator.removeFromSuperview()
-                self?.contentScrollView.addSubview(contentView)
+                
+                guard let `self` = self else { return }
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.removeFromSuperview()
+                self.contentScrollView.addSubview(contentView)
+                
+                self.apodContentView?.saveButton.addTarget(self, action: #selector(self.onSaveAPOD), for: .touchUpInside)
             }
         }
     }
@@ -96,5 +100,9 @@ class TodayViewController: UIViewController {
                 debugPrint(error)
             }
         }
+    }
+    
+    @objc private func onSaveAPOD() {
+        self.viewModel.onSaveAPOD()
     }
 }

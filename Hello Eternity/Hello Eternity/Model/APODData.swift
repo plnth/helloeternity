@@ -1,6 +1,6 @@
 import UIKit
 
-struct APODData: Decodable {
+struct APODDataFromAPI: Decodable {
     let date: String
     let explanation: String
     let hdurl: String
