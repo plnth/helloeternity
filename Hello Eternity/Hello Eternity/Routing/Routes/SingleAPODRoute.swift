@@ -1,7 +1,8 @@
 import Foundation
 
 enum SingleAPODModuleConfiguration {
-    case network, storage
+    case network
+    case storage(String)
 }
 
 protocol SingleAPODRoute {

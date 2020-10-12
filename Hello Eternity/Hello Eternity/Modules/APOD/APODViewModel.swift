@@ -10,7 +10,7 @@ final class APODViewModel {
     }
     
     func createTodayViewModel() -> SingleAPODViewModel {
-        return SingleAPODViewModel(router: self.router)
+        return SingleAPODViewModel(router: self.router, configuration: .network)
     }
     
     func createSavedViewModel() -> SavedViewModel {

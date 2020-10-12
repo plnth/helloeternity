@@ -52,6 +52,6 @@ extension SavedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.viewModel.openSingleAPODModule()
+        self.viewModel.openSingleAPODModule(with: self.viewModel.savedAPODs[indexPath.row].title ?? "")
     }
 }

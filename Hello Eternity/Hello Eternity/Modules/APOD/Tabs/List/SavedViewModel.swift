@@ -22,7 +22,7 @@ class SavedViewModel {
         }
     }
     
-    func openSingleAPODModule() {
-        self.router.openSingleAPODModule(configuration: .storage)
+    func openSingleAPODModule(with title: String) {
+        self.router.openSingleAPODModule(configuration: .storage(title))
     }
 }

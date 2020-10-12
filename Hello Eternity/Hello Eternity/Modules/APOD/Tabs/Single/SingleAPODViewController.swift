@@ -3,6 +3,7 @@ import UIKit
 class SingleAPODViewController: UIViewController {
     
     private let viewModel: SingleAPODViewModel
+    private let apodTitle: String
     
     private let contentScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -18,17 +19,27 @@ class SingleAPODViewController: UIViewController {
     private let activityIndicator = UIActivityIndicatorView()
     
     init(viewModel: SingleAPODViewModel) {
+        
         self.viewModel = viewModel
+        self.apodTitle = viewModel.fetchedAPOD?.title ?? ""
+        
         super.init(nibName: nil, bundle: nil)
         
         self.tabBarItem = UITabBarItem(title: L10n.apodTabToday, image: nil, selectedImage: nil)
     
-        self.viewModel.fetchTodayPictureInfo { result in
-            switch result {
-            case .success(let apodData):
-                self.createContentView(with: apodData)
-            case .failure(let error):
-                debugPrint(error)
+        switch self.viewModel.configuration {
+        case .network:
+            self.viewModel.fetchTodayPictureInfo { result in
+                switch result {
+                case .success(let apodData):
+                    self.createContentView(with: apodData)
+                case .failure(let error):
+                    debugPrint(error)
+                }
+            }
+        case .storage:
+            if !self.apodTitle.isEmpty, let apod = self.viewModel.fetchAPODFromStorage(for: self.apodTitle) {
+                self.createContentView(with: apod)
             }
         }
     }

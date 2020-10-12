@@ -24,7 +24,7 @@ final class SingleAPODModule {
     
     init(configuration: SingleAPODModuleConfiguration) {
         let router = SingleAPODRouter(configuration: configuration)
-        let viewModel = SingleAPODViewModel(router: router)
+        let viewModel = SingleAPODViewModel(router: router, configuration: configuration)
         let viewController = SingleAPODViewController(viewModel: viewModel)
         
         router.viewController = viewController

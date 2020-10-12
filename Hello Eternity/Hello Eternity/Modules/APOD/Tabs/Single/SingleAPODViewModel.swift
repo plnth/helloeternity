@@ -1,5 +1,6 @@
 import Foundation
 import Moya
+import CoreData
 
 class SingleAPODViewModel {
     
@@ -11,8 +12,26 @@ class SingleAPODViewModel {
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     private(set) var fetchedAPOD: APOD?
     
-    init(router: APODRouter.Routes) {
+    private(set) var configuration: SingleAPODModuleConfiguration
+    
+    init(router: APODRouter.Routes, configuration: SingleAPODModuleConfiguration) {
         self.router = router
+        self.configuration = configuration
+        
+        if case let SingleAPODModuleConfiguration.storage(title) = configuration {
+            
+            guard let context = self.context else { return }
+            
+            let request = APOD.fetchRequest() as NSFetchRequest
+            let predicate = NSPredicate(format: "title == %@", title)
+            request.predicate = predicate
+            
+            do {
+                self.fetchedAPOD = try context.fetch(request).first
+            } catch {
+                debugPrint(error)
+            }
+        }
     }
 
     func fetchTodayPictureInfo(completion: @escaping ((Result<APOD, MoyaError>) -> Void)) {
@@ -44,6 +63,21 @@ class SingleAPODViewModel {
     func fetchTodayPictureFromURL(pictureURL: String, completion: @escaping ((Result<Data, MoyaError>) -> Void)) {
         let prefix = APIConstants.APOD.baseImageURL.absoluteString
         return self.networkProvider.performTodayPictureFromURLRequest(pictureURL: pictureURL.deletingPrefix(prefix), completion: completion)
+    }
+    
+    func fetchAPODFromStorage(for title: String) -> APOD? {
+        guard let context = self.context else { return nil }
+        
+        let request = APOD.fetchRequest() as NSFetchRequest
+        let predicate = NSPredicate(format: "title == %@", title)
+        request.predicate = predicate
+        do {
+            let apod = try context.fetch(request).first
+            return apod
+        } catch {
+            debugPrint(error)
+            return nil
+        }
     }
     
     func onSaveAPOD() {
