@@ -1,6 +1,6 @@
 import UIKit
 
-final class TodayContentView: UIView {
+final class SingleAPODContentView: UIView {
     
     private let activityIndicator = UIActivityIndicatorView()
     

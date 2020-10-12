@@ -1,8 +1,8 @@
 import UIKit
 
-class TodayViewController: UIViewController {
+class SingleAPODViewController: UIViewController {
     
-    private let viewModel: TodayViewModel
+    private let viewModel: SingleAPODViewModel
     
     private let contentScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -14,10 +14,10 @@ class TodayViewController: UIViewController {
         return scrollView
     }()
     
-    private var apodContentView: TodayContentView?
+    private var apodContentView: SingleAPODContentView?
     private let activityIndicator = UIActivityIndicatorView()
     
-    init(viewModel: TodayViewModel) {
+    init(viewModel: SingleAPODViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
@@ -64,7 +64,7 @@ class TodayViewController: UIViewController {
     }
     
     private func createContentView(with apodData: APOD) {
-        self.apodContentView = TodayContentView(
+        self.apodContentView = SingleAPODContentView(
             frame: UIScreen.main.bounds,
             title: apodData.title ?? "",
             date: apodData.date ?? "",

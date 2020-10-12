@@ -1,14 +1,15 @@
 import Foundation
 import Moya
 
-class TodayViewModel {
+class SingleAPODViewModel {
+    
     private let router: APODRouter.Routes
+    weak var output: SingleAPODModuleOutput?
     
     private let networkProvider = NetworkDataProvider()
     
-    private(set) var fetchedAPOD: APOD?
-    
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    private(set) var fetchedAPOD: APOD?
     
     init(router: APODRouter.Routes) {
         self.router = router
@@ -57,3 +58,5 @@ class TodayViewModel {
         }
     }
 }
+
+extension SingleAPODViewModel: SingleAPODModuleInput {}
