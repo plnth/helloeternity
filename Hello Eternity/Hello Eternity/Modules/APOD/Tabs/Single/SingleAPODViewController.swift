@@ -70,7 +70,9 @@ class SingleAPODViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let contentView = self.apodContentView {
+            let bottomOffset: CGFloat = self.tabBarController?.tabBar.frame.size.height ?? 2 *  AppConstants.LayoutConstants.commonSpacingOffset
             self.contentScrollView.contentSize = contentView.frame.size
+            self.contentScrollView.contentSize.height += bottomOffset
         }
     }
     
@@ -82,7 +84,7 @@ class SingleAPODViewController: UIViewController {
             explanation: apodData.explanation ?? ""
         )
         debugPrint(NSHomeDirectory())
-        self.setupImageFromURL(apodData.url!)
+        self.setupImageFromURL(apodData.url!) //TODO
         
         if let contentView = self.apodContentView {
             DispatchQueue.main.async { [weak self] in

@@ -8,8 +8,8 @@ class SingleAPODViewModel {
     weak var output: SingleAPODModuleOutput?
     
     private let networkProvider = NetworkDataProvider()
-    
-    private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    private let storageProvider = StorageDataProvider.shared
+
     private(set) var fetchedAPOD: APOD?
     
     private(set) var configuration: SingleAPODModuleConfiguration
@@ -19,24 +19,11 @@ class SingleAPODViewModel {
         self.configuration = configuration
         
         if case let SingleAPODModuleConfiguration.storage(title) = configuration {
-            
-            guard let context = self.context else { return }
-            
-            let request = APOD.fetchRequest() as NSFetchRequest
-            let predicate = NSPredicate(format: "title == %@", title)
-            request.predicate = predicate
-            
-            do {
-                self.fetchedAPOD = try context.fetch(request).first
-            } catch {
-                debugPrint(error)
-            }
+            self.fetchedAPOD = try? self.storageProvider.fetchAPODByTitle(title)
         }
     }
 
     func fetchTodayPictureInfo(completion: @escaping ((Result<APOD, MoyaError>) -> Void)) {
-        
-        guard let context = self.context else { return }
         
         self.networkProvider.performTodayPictureInfoRequest { result in
             let convertedResult = result.mapError { error in
@@ -44,16 +31,21 @@ class SingleAPODViewModel {
             }
             .flatMap { apodFromAPI -> Result<APOD, MoyaError> in
                 
-                let apodItem = APOD(context: context)
-                apodItem.date = apodFromAPI.date
-                apodItem.explanation = apodFromAPI.explanation
-                apodItem.hdurl = apodFromAPI.hdurl
-                apodItem.title = apodFromAPI.title
-                apodItem.url = apodFromAPI.url
-                
-                self.fetchedAPOD = apodItem
-                
-                return .success(apodItem)
+                do {
+                    let apodItem = try self.storageProvider.newAPODItem()
+                    apodItem.date = apodFromAPI.date
+                    apodItem.explanation = apodFromAPI.explanation
+                    apodItem.hdurl = apodFromAPI.hdurl
+                    apodItem.title = apodFromAPI.title
+                    apodItem.url = apodFromAPI.url
+                    
+                    self.fetchedAPOD = apodItem
+                    
+                    return .success(apodItem)
+                } catch {
+                    debugPrint(error)
+                    return .failure(MoyaError.underlying(error, nil))
+                }
             }
                 
             completion(convertedResult)
@@ -66,18 +58,8 @@ class SingleAPODViewModel {
     }
     
     func fetchAPODFromStorage(for title: String) -> APOD? {
-        guard let context = self.context else { return nil }
-        
-        let request = APOD.fetchRequest() as NSFetchRequest
-        let predicate = NSPredicate(format: "title == %@", title)
-        request.predicate = predicate
-        do {
-            let apod = try context.fetch(request).first
-            return apod
-        } catch {
-            debugPrint(error)
-            return nil
-        }
+        let apod = try? self.storageProvider.fetchAPODByTitle(title)
+        return apod
     }
     
     func onSaveAPOD() {
@@ -85,11 +67,7 @@ class SingleAPODViewModel {
     }
     
     private func saveContext() {
-        do {
-            try self.context?.save()
-        } catch {
-            debugPrint(error)
-        }
+        try? self.storageProvider.saveContext()
     }
 }
 

@@ -23,7 +23,6 @@ final class SingleAPODContentView: UIView {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Asset.earthEyesHalfOpened.image
         imageView.addSubview(self.activityIndicator)
         return imageView
     }()

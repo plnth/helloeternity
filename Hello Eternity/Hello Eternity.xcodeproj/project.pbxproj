@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0607C91C2535A72C0009A476 /* StorageDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0607C91B2535A72C0009A476 /* StorageDataProvider.swift */; };
 		061D55FD253436FA003E3E03 /* HelloEternityDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 061D55FB253436FA003E3E03 /* HelloEternityDataModel.xcdatamodeld */; };
 		061D56012534398A003E3E03 /* APOD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D55FF2534398A003E3E03 /* APOD+CoreDataClass.swift */; };
 		061D56022534398A003E3E03 /* APOD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D56002534398A003E3E03 /* APOD+CoreDataProperties.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0607C91B2535A72C0009A476 /* StorageDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageDataProvider.swift; sourceTree = "<group>"; };
 		061D55FC253436FA003E3E03 /* HelloEternityDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HelloEternityDataModel.xcdatamodel; sourceTree = "<group>"; };
 		061D55FF2534398A003E3E03 /* APOD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APOD+CoreDataClass.swift"; sourceTree = "<group>"; };
 		061D56002534398A003E3E03 /* APOD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APOD+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -118,13 +120,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0607C91A2535A7120009A476 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				062A3B6A253076D400B2A5D9 /* NetworkDataProvider.swift */,
+				0607C91B2535A72C0009A476 /* StorageDataProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
 		062A3B572530716D00B2A5D9 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				062A3B6D253092F400B2A5D9 /* Requests */,
 				062A3B582530719200B2A5D9 /* API.swift */,
 				062A3B5C2530719F00B2A5D9 /* MoyaAPI.swift */,
-				062A3B6A253076D400B2A5D9 /* NetworkDataProvider.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -230,6 +240,7 @@
 		067EB88E252F480A00230739 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0607C91A2535A7120009A476 /* Providers */,
 				062A3B572530716D00B2A5D9 /* Networking */,
 			);
 			path = Services;
@@ -490,6 +501,7 @@
 				061D560A2534535D003E3E03 /* SavedContentView.swift in Sources */,
 				06B69ADC252E0E8D00CE87DA /* MainCollectionView.swift in Sources */,
 				067EB8B0252F4E5100230739 /* SingleAPODViewModel.swift in Sources */,
+				0607C91C2535A72C0009A476 /* StorageDataProvider.swift in Sources */,
 				067EB8B3252F4E6E00230739 /* SavedViewModel.swift in Sources */,
 				062A3B68253074C500B2A5D9 /* APIConstants.swift in Sources */,
 				067EB88A252F43C500230739 /* Assets.swift in Sources */,
