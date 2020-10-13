@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0607C91C2535A72C0009A476 /* StorageDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0607C91B2535A72C0009A476 /* StorageDataProvider.swift */; };
 		061D55FD253436FA003E3E03 /* HelloEternityDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 061D55FB253436FA003E3E03 /* HelloEternityDataModel.xcdatamodeld */; };
-		061D56012534398A003E3E03 /* APOD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D55FF2534398A003E3E03 /* APOD+CoreDataClass.swift */; };
-		061D56022534398A003E3E03 /* APOD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D56002534398A003E3E03 /* APOD+CoreDataProperties.swift */; };
 		061D560A2534535D003E3E03 /* SavedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D56092534535D003E3E03 /* SavedContentView.swift */; };
 		061D561325345ED9003E3E03 /* SingleAPODRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D561225345ED9003E3E03 /* SingleAPODRoute.swift */; };
 		061D561625345F9B003E3E03 /* SingleAPODModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D561525345F9B003E3E03 /* SingleAPODModule.swift */; };
@@ -43,6 +41,10 @@
 		067EB8B0252F4E5100230739 /* SingleAPODViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067EB8AF252F4E5100230739 /* SingleAPODViewModel.swift */; };
 		067EB8B3252F4E6E00230739 /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067EB8B2252F4E6E00230739 /* SavedViewModel.swift */; };
 		067EB8B8252F534900230739 /* SingleAPODContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067EB8B7252F534900230739 /* SingleAPODContentView.swift */; };
+		069EEBEA2535D32A009D45FC /* Media+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EEBE62535D32A009D45FC /* Media+CoreDataClass.swift */; };
+		069EEBEB2535D32A009D45FC /* Media+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EEBE72535D32A009D45FC /* Media+CoreDataProperties.swift */; };
+		069EEBEC2535D32A009D45FC /* APOD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EEBE82535D32A009D45FC /* APOD+CoreDataClass.swift */; };
+		069EEBED2535D32A009D45FC /* APOD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EEBE92535D32A009D45FC /* APOD+CoreDataProperties.swift */; };
 		06A4D145252F101800543AB4 /* APODModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A4D144252F101800543AB4 /* APODModule.swift */; };
 		06A4D148252F108A00543AB4 /* APODViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A4D147252F108A00543AB4 /* APODViewModel.swift */; };
 		06A4D14B252F117B00543AB4 /* APODRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A4D14A252F117B00543AB4 /* APODRouter.swift */; };
@@ -52,14 +54,13 @@
 		06C257BE252CB95F00ABA929 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C257BD252CB95F00ABA929 /* MainViewController.swift */; };
 		06C257C3252CB96300ABA929 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06C257C2252CB96300ABA929 /* Assets.xcassets */; };
 		06C257C6252CB96300ABA929 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06C257C4252CB96300ABA929 /* LaunchScreen.storyboard */; };
+		06DBC44F2535BF38009818B8 /* MediaFilesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBC44E2535BF38009818B8 /* MediaFilesProvider.swift */; };
 		35F61F992C83059E5CAC5B10 /* Pods_Hello_Eternity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFDA3CBDAE76FA2AA9388A5 /* Pods_Hello_Eternity.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0607C91B2535A72C0009A476 /* StorageDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageDataProvider.swift; sourceTree = "<group>"; };
 		061D55FC253436FA003E3E03 /* HelloEternityDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HelloEternityDataModel.xcdatamodel; sourceTree = "<group>"; };
-		061D55FF2534398A003E3E03 /* APOD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APOD+CoreDataClass.swift"; sourceTree = "<group>"; };
-		061D56002534398A003E3E03 /* APOD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APOD+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		061D56092534535D003E3E03 /* SavedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedContentView.swift; sourceTree = "<group>"; };
 		061D561225345ED9003E3E03 /* SingleAPODRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleAPODRoute.swift; sourceTree = "<group>"; };
 		061D561525345F9B003E3E03 /* SingleAPODModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleAPODModule.swift; sourceTree = "<group>"; };
@@ -92,6 +93,10 @@
 		067EB8AF252F4E5100230739 /* SingleAPODViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleAPODViewModel.swift; sourceTree = "<group>"; };
 		067EB8B2252F4E6E00230739 /* SavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewModel.swift; sourceTree = "<group>"; };
 		067EB8B7252F534900230739 /* SingleAPODContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleAPODContentView.swift; sourceTree = "<group>"; };
+		069EEBE62535D32A009D45FC /* Media+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Media+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		069EEBE72535D32A009D45FC /* Media+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Media+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		069EEBE82535D32A009D45FC /* APOD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APOD+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		069EEBE92535D32A009D45FC /* APOD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APOD+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		06A4D144252F101800543AB4 /* APODModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODModule.swift; sourceTree = "<group>"; };
 		06A4D147252F108A00543AB4 /* APODViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODViewModel.swift; sourceTree = "<group>"; };
 		06A4D14A252F117B00543AB4 /* APODRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODRouter.swift; sourceTree = "<group>"; };
@@ -103,6 +108,7 @@
 		06C257C2252CB96300ABA929 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06C257C5252CB96300ABA929 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06C257C7252CB96300ABA929 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06DBC44E2535BF38009818B8 /* MediaFilesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFilesProvider.swift; sourceTree = "<group>"; };
 		6188DB9552473FE9046D2282 /* Pods-Hello Eternity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hello Eternity.release.xcconfig"; path = "Target Support Files/Pods-Hello Eternity/Pods-Hello Eternity.release.xcconfig"; sourceTree = "<group>"; };
 		ADFDA3CBDAE76FA2AA9388A5 /* Pods_Hello_Eternity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hello_Eternity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C044FA886559E2D9E1BAC494 /* Pods-Hello Eternity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hello Eternity.debug.xcconfig"; path = "Target Support Files/Pods-Hello Eternity/Pods-Hello Eternity.debug.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +131,7 @@
 			children = (
 				062A3B6A253076D400B2A5D9 /* NetworkDataProvider.swift */,
 				0607C91B2535A72C0009A476 /* StorageDataProvider.swift */,
+				06DBC44E2535BF38009818B8 /* MediaFilesProvider.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -142,8 +149,10 @@
 		062A3B62253072B400B2A5D9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				061D55FF2534398A003E3E03 /* APOD+CoreDataClass.swift */,
-				061D56002534398A003E3E03 /* APOD+CoreDataProperties.swift */,
+				069EEBE62535D32A009D45FC /* Media+CoreDataClass.swift */,
+				069EEBE72535D32A009D45FC /* Media+CoreDataProperties.swift */,
+				069EEBE82535D32A009D45FC /* APOD+CoreDataClass.swift */,
+				069EEBE92535D32A009D45FC /* APOD+CoreDataProperties.swift */,
 				062A3B63253072DB00B2A5D9 /* APODData.swift */,
 				061D55FB253436FA003E3E03 /* HelloEternityDataModel.xcdatamodeld */,
 			);
@@ -476,6 +485,7 @@
 				0671D20E252F080A0087EC9F /* MainRouter.swift in Sources */,
 				06A4D14B252F117B00543AB4 /* APODRouter.swift in Sources */,
 				067EB889252F43C500230739 /* Strings.swift in Sources */,
+				069EEBEC2535D32A009D45FC /* APOD+CoreDataClass.swift in Sources */,
 				062A3B64253072DB00B2A5D9 /* APODData.swift in Sources */,
 				062A3B592530719200B2A5D9 /* API.swift in Sources */,
 				062A3B5D2530719F00B2A5D9 /* MoyaAPI.swift in Sources */,
@@ -484,11 +494,11 @@
 				062A3B6B253076D400B2A5D9 /* NetworkDataProvider.swift in Sources */,
 				06A4D14E252F119800543AB4 /* APODViewController.swift in Sources */,
 				0671D1FE252EFB890087EC9F /* Animator.swift in Sources */,
-				061D56012534398A003E3E03 /* APOD+CoreDataClass.swift in Sources */,
 				067EB8AA252F4DD700230739 /* SingleAPODViewController.swift in Sources */,
 				067EB88B252F43C500230739 /* Colors.swift in Sources */,
 				061D561325345ED9003E3E03 /* SingleAPODRoute.swift in Sources */,
 				062A3B732530A03C00B2A5D9 /* String+deletingPrefix.swift in Sources */,
+				069EEBEB2535D32A009D45FC /* Media+CoreDataProperties.swift in Sources */,
 				067EB874252F2DC300230739 /* ReusableView.swift in Sources */,
 				067E433E252F09660033F6E2 /* MainModuleBuilder.swift in Sources */,
 				06A4D145252F101800543AB4 /* APODModule.swift in Sources */,
@@ -498,17 +508,19 @@
 				061D55FD253436FA003E3E03 /* HelloEternityDataModel.xcdatamodeld in Sources */,
 				067E4341252F09A00033F6E2 /* MainViewModel.swift in Sources */,
 				067E4345252F0A610033F6E2 /* APODRoute.swift in Sources */,
+				069EEBED2535D32A009D45FC /* APOD+CoreDataProperties.swift in Sources */,
 				061D560A2534535D003E3E03 /* SavedContentView.swift in Sources */,
 				06B69ADC252E0E8D00CE87DA /* MainCollectionView.swift in Sources */,
 				067EB8B0252F4E5100230739 /* SingleAPODViewModel.swift in Sources */,
 				0607C91C2535A72C0009A476 /* StorageDataProvider.swift in Sources */,
+				069EEBEA2535D32A009D45FC /* Media+CoreDataClass.swift in Sources */,
 				067EB8B3252F4E6E00230739 /* SavedViewModel.swift in Sources */,
 				062A3B68253074C500B2A5D9 /* APIConstants.swift in Sources */,
 				067EB88A252F43C500230739 /* Assets.swift in Sources */,
+				06DBC44F2535BF38009818B8 /* MediaFilesProvider.swift in Sources */,
 				061D561625345F9B003E3E03 /* SingleAPODModule.swift in Sources */,
 				067EB8AD252F4DFB00230739 /* SavedViewController.swift in Sources */,
 				06C257BC252CB95F00ABA929 /* AppDelegate.swift in Sources */,
-				061D56022534398A003E3E03 /* APOD+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

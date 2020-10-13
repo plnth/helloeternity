@@ -13,5 +13,6 @@ extension APOD {
     @NSManaged public var hdurl: String?
     @NSManaged public var title: String?
     @NSManaged public var url: String?
+    @NSManaged public var media: Media?
 
 }

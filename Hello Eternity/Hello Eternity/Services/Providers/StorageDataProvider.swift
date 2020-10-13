@@ -13,6 +13,8 @@ final class StorageDataProvider {
     
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
+    private let mediaFilesProvider = MediaFilesProvider.default
+    
     func fetchStoredAPODs() throws -> [APOD] {
         guard let context = self.context else {
             throw StorageProviderError.noContext
@@ -37,6 +39,15 @@ final class StorageDataProvider {
         return APOD(context: context)
     }
     
+    func newMediaItem() throws -> Media {
+        
+        guard let context = self.context else {
+            throw StorageProviderError.noContext
+        }
+        
+        return Media(context: context)
+    }
+    
     func fetchAPODByTitle(_ title: String) throws -> APOD? {
         
         guard let context = self.context else {
@@ -53,6 +64,13 @@ final class StorageDataProvider {
         } catch {
             throw StorageProviderError.fetchFailed
         }
+    }
+    
+    func saveMediaData(_ media: Media, _ data: Data) -> String? {
+        if let title = media.title {
+            return self.mediaFilesProvider.saveMediaWithPath(mediaData: data, with: title)
+        }
+        return nil
     }
     
     func saveContext() throws {

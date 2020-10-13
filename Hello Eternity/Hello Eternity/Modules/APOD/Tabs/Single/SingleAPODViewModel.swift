@@ -14,6 +14,8 @@ class SingleAPODViewModel {
     
     private(set) var configuration: SingleAPODModuleConfiguration
     
+    private var mediaData = Data()
+    
     init(router: APODRouter.Routes, configuration: SingleAPODModuleConfiguration) {
         self.router = router
         self.configuration = configuration
@@ -39,6 +41,15 @@ class SingleAPODViewModel {
                     apodItem.title = apodFromAPI.title
                     apodItem.url = apodFromAPI.url
                     
+                    let media = try self.storageProvider.newMediaItem()
+                    if let url = apodItem.url {
+                        let title = url.split { $0 == "/" }.last.map(String.init)
+                        media.title = title
+                    }
+                    media.url = apodItem.url
+                    
+                    apodItem.media = media
+                    
                     self.fetchedAPOD = apodItem
                     
                     return .success(apodItem)
@@ -54,7 +65,16 @@ class SingleAPODViewModel {
     
     func fetchTodayPictureFromURL(pictureURL: String, completion: @escaping ((Result<Data, MoyaError>) -> Void)) {
         let prefix = APIConstants.APOD.baseImageURL.absoluteString
-        return self.networkProvider.performTodayPictureFromURLRequest(pictureURL: pictureURL.deletingPrefix(prefix), completion: completion)
+        self.networkProvider.performTodayPictureFromURLRequest(pictureURL: pictureURL.deletingPrefix(prefix)) { [weak self] result in
+            let convertedResult = result.mapError { error -> MoyaError in
+                return MoyaError.underlying(error, nil)
+            }
+            .flatMap { imageData -> Result<Data, MoyaError> in
+                self?.mediaData = imageData
+                return .success(imageData)
+            }
+            completion(convertedResult)
+        }
     }
     
     func fetchAPODFromStorage(for title: String) -> APOD? {
@@ -63,7 +83,11 @@ class SingleAPODViewModel {
     }
     
     func onSaveAPOD() {
-        self.saveContext()
+        if let media = self.fetchedAPOD?.media {
+            let path = self.storageProvider.saveMediaData(media, self.mediaData)
+            self.fetchedAPOD?.media?.filePath = path
+            self.saveContext()
+        }
     }
     
     private func saveContext() {
