@@ -14,7 +14,7 @@ class SingleAPODViewModel {
     
     private(set) var configuration: SingleAPODModuleConfiguration
     
-    private var mediaData = Data()
+    private(set) var mediaData: Data?
     
     init(router: APODRouter.Routes, configuration: SingleAPODModuleConfiguration) {
         self.router = router
@@ -22,6 +22,7 @@ class SingleAPODViewModel {
         
         if case let SingleAPODModuleConfiguration.storage(title) = configuration {
             self.fetchedAPOD = try? self.storageProvider.fetchAPODByTitle(title)
+            self.mediaData = self.storageProvider.getMediaFileDataForTitle(title)
         }
     }
 
@@ -83,8 +84,9 @@ class SingleAPODViewModel {
     }
     
     func onSaveAPOD() {
-        if let media = self.fetchedAPOD?.media {
-            let path = self.storageProvider.saveMediaData(media, self.mediaData)
+        if let media = self.fetchedAPOD?.media,
+           let data = self.mediaData {
+            let path = self.storageProvider.saveMediaData(media, data)
             self.fetchedAPOD?.media?.filePath = path
             self.saveContext()
         }

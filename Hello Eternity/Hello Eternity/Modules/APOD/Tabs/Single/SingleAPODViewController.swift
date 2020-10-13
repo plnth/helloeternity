@@ -40,6 +40,11 @@ class SingleAPODViewController: UIViewController {
         case .storage:
             if !self.apodTitle.isEmpty, let apod = self.viewModel.fetchAPODFromStorage(for: self.apodTitle) {
                 self.createContentView(with: apod)
+                
+                if let data = self.viewModel.mediaData,
+                   let image = UIImage(data: data) {
+                    self.apodContentView?.updateImage(with: image)
+                }
             }
         }
     }

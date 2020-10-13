@@ -55,7 +55,7 @@ final class StorageDataProvider {
         }
         
         let request = APOD.fetchRequest() as NSFetchRequest
-        let predicate = NSPredicate(format: "title == %@", title)
+        let predicate = NSPredicate(format: "title CONTAINS %@", title)
         request.predicate = predicate
         
         do {
@@ -71,6 +71,10 @@ final class StorageDataProvider {
             return self.mediaFilesProvider.saveMediaWithPath(mediaData: data, with: title)
         }
         return nil
+    }
+    
+    func getMediaFileDataForTitle(_ title: String) -> Data? {
+        return self.mediaFilesProvider.getMediaFileDataForTitle(title)
     }
     
     func saveContext() throws {

@@ -38,7 +38,7 @@ final class MoyaAPI {
             switch self {
             case .fetchTodayPictureInfo:
                 //TODO: temporary stub until video handling is introduced
-                return .requestParameters(parameters: ["api_key" : "DEMO_KEY", "date": "2020-10-11"], encoding: URLEncoding())
+                return .requestParameters(parameters: ["api_key" : "DEMO_KEY", "date": "2020-09-24"], encoding: URLEncoding())
             case .fetchTodayPictureFromURL:
                 return .requestPlain
             }

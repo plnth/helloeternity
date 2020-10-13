@@ -47,4 +47,9 @@ final class MediaFilesProvider {
         
         return fullPath
     }
+    
+    func getMediaFileDataForTitle(_ title: String) -> Data? {
+        let fullPath = self.rootMediaDirectory.appendingPathComponent(title).path
+        return self.fileManager.contents(atPath: fullPath)
+    }
 }
