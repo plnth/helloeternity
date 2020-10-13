@@ -37,7 +37,8 @@ final class MoyaAPI {
         var task: Task {
             switch self {
             case .fetchTodayPictureInfo:
-                return .requestParameters(parameters: ["api_key" : "DEMO_KEY"], encoding: URLEncoding())
+                //TODO: temporary stub until video handling is introduced
+                return .requestParameters(parameters: ["api_key" : "DEMO_KEY", "date": "2020-09-24"], encoding: URLEncoding())
             case .fetchTodayPictureFromURL:
                 return .requestPlain
             }

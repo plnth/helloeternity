@@ -4,9 +4,10 @@ class APODViewController: UITabBarController {
     
     private let viewModel: APODViewModel
     
-    private lazy var todayController: TodayViewController = {
+    private lazy var todayController: SingleAPODViewController = {
+        //TODO: naming
         let viewModel = self.viewModel.createTodayViewModel()
-        let vc = TodayViewController(viewModel: viewModel)
+        let vc = SingleAPODViewController(viewModel: viewModel)
         return vc
     }()
     

@@ -4,8 +4,8 @@ import Moya
 class NetworkDataProvider {
     
     private let provider = MoyaProvider<MoyaAPI.Endpoint>()
-    
-    func performTodayPictureInfoRequest(completion: @escaping ((Result<APODData, MoyaError>) -> Void)) {
+
+    func performTodayPictureInfoRequest(completion: @escaping ((Result<APODDataFromAPI, MoyaError>) -> Void)) {
         
         self.provider.request(.fetchTodayPictureInfo) { result in
             
@@ -13,18 +13,19 @@ class NetworkDataProvider {
                 return MoyaError.underlying(error, nil)
             }
             
-            .flatMap { response -> Result<APODData, MoyaError> in
+            .flatMap { response -> Result<APODDataFromAPI, MoyaError> in
                 guard let json = try? JSONSerialization.jsonObject(with: response.data, options: []),
                       let jsonDictionary = json as? [String: String] else {
                     return .failure(MoyaError.jsonMapping(response))
                 }
                 
-                let apodData = APODData(
+                let apodData = APODDataFromAPI(
                     date: jsonDictionary["date"] ?? "",
                     explanation: jsonDictionary["explanation"] ?? "",
                     hdurl: jsonDictionary["hdurl"] ?? "",
                     title: jsonDictionary["title"] ?? "",
                     url: jsonDictionary["url"] ?? "")
+                
                 return .success(apodData)
             }
             

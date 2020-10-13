@@ -1,6 +1,6 @@
 import UIKit
 
-final class TodayContentView: UIView {
+final class SingleAPODContentView: UIView {
     
     private let activityIndicator = UIActivityIndicatorView()
     
@@ -23,7 +23,6 @@ final class TodayContentView: UIView {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Asset.earthEyesHalfOpened.image
         imageView.addSubview(self.activityIndicator)
         return imageView
     }()

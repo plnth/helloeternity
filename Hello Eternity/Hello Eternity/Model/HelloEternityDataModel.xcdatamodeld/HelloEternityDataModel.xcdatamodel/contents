@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="APOD" representedClassName="APOD" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="String"/>
+        <attribute name="explanation" attributeType="String"/>
+        <attribute name="hdurl" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="url" attributeType="String"/>
+        <relationship name="media" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Media" inverseName="apodData" inverseEntity="Media"/>
+    </entity>
+    <entity name="Media" representedClassName="Media" syncable="YES" codeGenerationType="class">
+        <attribute name="filePath" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="url" attributeType="String"/>
+        <relationship name="apodData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="APOD" inverseName="media" inverseEntity="APOD"/>
+    </entity>
+    <elements>
+        <element name="APOD" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Media" positionX="-435.3203125" positionY="-0.359375" width="128" height="103"/>
+    </elements>
+</model>
