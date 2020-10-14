@@ -19,7 +19,8 @@ final class SavedContentViewCell: UITableViewCell, ReusableView {
         self.layer.borderWidth = 1
         self.layer.borderColor = Asset.grayBlue.color.cgColor
         self.textLabel?.textColor = Asset.deepBlue.color
-        self.textLabel?.font = .boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .largeTitle).pointSize)
+        self.textLabel?.font = .boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .headline).pointSize)
+        self.textLabel?.numberOfLines = 0
         self.selectedBackgroundView = self._selectedBackgroundView
     }
 }
