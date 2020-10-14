@@ -24,6 +24,12 @@ class SavedViewController: UIViewController {
         self.contentTableView.register(SavedContentViewCell.self, forCellReuseIdentifier: SavedContentViewCell.reuseIdentifier)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.savedAPODs = []
+        self.contentTableView.reloadData()
+    }
+    
     init(viewModel: SavedViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

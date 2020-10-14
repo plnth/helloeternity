@@ -13,6 +13,13 @@ final class StorageDataProvider {
     
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
+    private lazy var childContext: NSManagedObjectContext? = {
+        guard let parentContext = self.context else { return nil }
+        let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        childContext.parent = parentContext
+        return childContext
+    }()
+    
     private let mediaFilesProvider = MediaFilesProvider.default
     
     func fetchStoredAPODs() throws -> [APOD] {
@@ -32,20 +39,20 @@ final class StorageDataProvider {
     
     func newAPODItem() throws -> APOD {
         
-        guard let context = self.context else {
+        guard let childContext = self.childContext else {
             throw StorageProviderError.noContext
         }
         
-        return APOD(context: context)
+        return APOD(context: childContext)
     }
     
     func newMediaItem() throws -> Media {
         
-        guard let context = self.context else {
+        guard let childContext = self.childContext else {
             throw StorageProviderError.noContext
         }
         
-        return Media(context: context)
+        return Media(context: childContext)
     }
     
     func fetchAPODByTitle(_ title: String) throws -> APOD? {
@@ -66,15 +73,32 @@ final class StorageDataProvider {
         }
     }
     
+    func saveAPOD(_ apod: APOD, withMedia media: Media, withData data: Data) {
+        let path = self.saveMediaData(media, data)
+        apod.media?.filePath = path
+        do {
+            try self.childContext?.save()
+            try self.saveContext()
+        } catch {
+            debugPrint(error)
+        }
+    }
+    
     func saveMediaData(_ media: Media, _ data: Data) -> String? {
         if let title = media.title {
-            return self.mediaFilesProvider.saveMediaWithPath(mediaData: data, with: title)
+            let path = self.mediaFilesProvider.saveMediaWithPath(mediaData: data, with: title)
+            return path
         }
         return nil
     }
     
     func getMediaFileDataForTitle(_ title: String) -> Data? {
         return self.mediaFilesProvider.getMediaFileDataForTitle(title)
+    }
+    
+    func deleteAPOD(_ apod: APOD) {
+        self.context?.delete(apod)
+        try? self.saveContext()
     }
     
     func saveContext() throws {

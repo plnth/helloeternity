@@ -1,6 +1,4 @@
-import Foundation
 import CoreData
-import Moya
 
 class SavedViewModel {
     

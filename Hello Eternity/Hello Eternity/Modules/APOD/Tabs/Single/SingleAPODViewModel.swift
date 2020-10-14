@@ -84,16 +84,18 @@ class SingleAPODViewModel {
     }
     
     func onSaveAPOD() {
-        if let media = self.fetchedAPOD?.media,
+        if let apod = self.fetchedAPOD,
+           let media = apod.media,
            let data = self.mediaData {
-            let path = self.storageProvider.saveMediaData(media, data)
-            self.fetchedAPOD?.media?.filePath = path
-            self.saveContext()
+            self.storageProvider.saveAPOD(apod, withMedia: media, withData: data)
         }
     }
     
-    private func saveContext() {
-        try? self.storageProvider.saveContext()
+    func onDeleteAPOD() {
+        if let apod = self.fetchedAPOD {
+            self.storageProvider.deleteAPOD(apod)
+            self.router.close()
+        }
     }
 }
 
