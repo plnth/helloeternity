@@ -138,6 +138,6 @@ class SingleAPODViewController: UIViewController {
     }
     
     @objc private func onDeleteAPOD() {
-        self.viewModel.onDeleteAPOD()
+//        self.viewModel.onDeleteAPOD()
     }
 }
