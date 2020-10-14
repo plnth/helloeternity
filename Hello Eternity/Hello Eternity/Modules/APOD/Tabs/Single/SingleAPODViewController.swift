@@ -72,6 +72,10 @@ class SingleAPODViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let contentView = self.apodContentView {
@@ -86,7 +90,8 @@ class SingleAPODViewController: UIViewController {
             frame: UIScreen.main.bounds,
             title: apodData.title ?? "",
             date: apodData.date ?? "",
-            explanation: apodData.explanation ?? ""
+            explanation: apodData.explanation ?? "",
+            configuration: self.viewModel.configuration
         )
         debugPrint(NSHomeDirectory())
         self.setupImageFromURL(apodData.url!) //TODO
@@ -98,9 +103,17 @@ class SingleAPODViewController: UIViewController {
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.removeFromSuperview()
                 self.contentScrollView.addSubview(contentView)
-                
-                self.apodContentView?.saveButton.addTarget(self, action: #selector(self.onSaveAPOD), for: .touchUpInside)
+                self.addActions()
             }
+        }
+    }
+    
+    private func addActions() {
+        switch self.viewModel.configuration {
+        case .network:
+            self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onSaveAPOD), for: .touchUpInside)
+        case .storage:
+            self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onDeleteAPOD), for: .touchUpInside)
         }
     }
     
@@ -122,5 +135,9 @@ class SingleAPODViewController: UIViewController {
     
     @objc private func onSaveAPOD() {
         self.viewModel.onSaveAPOD()
+    }
+    
+    @objc private func onDeleteAPOD() {
+        self.viewModel.onDeleteAPOD()
     }
 }

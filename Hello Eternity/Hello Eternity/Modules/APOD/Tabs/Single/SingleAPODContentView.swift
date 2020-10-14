@@ -48,19 +48,30 @@ final class SingleAPODContentView: UIView {
         return textView
     }()
     
-    let saveButton: UIButton = {
+    lazy var saveOrDeleteButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = Asset.skyBlue.color
-        button.setTitle(L10n.apodSave, for: .normal)
-        button.setTitleColor(Asset.deepBlue.color, for: .normal)
+        switch self.isStored {
+        case true:
+            button.setTitle(L10n.apodDelete, for: .normal)
+            button.setTitleColor(Asset.dramaticRed.color, for: .normal)
+        case false:
+            button.setTitle(L10n.apodSave, for: .normal)
+            button.setTitleColor(Asset.deepBlue.color, for: .normal)
+        }
         button.setTitleColor(Asset.purpleBlue.color, for: .highlighted)
+        button.backgroundColor = Asset.skyBlue.color
         button.layer.cornerRadius = 8
         return button
     }()
     
-    convenience init(frame: CGRect, title: String, date: String, explanation: String) {
+    private var isStored: Bool = false
+    
+    convenience init(frame: CGRect, title: String, date: String, explanation: String, configuration: SingleAPODModuleConfiguration) {
         self.init(frame: frame)
         
+        if case SingleAPODModuleConfiguration.storage = configuration {
+            self.isStored = true
+        }
         self.addSubviews()
         
         self.titleLabel.text = title
@@ -75,7 +86,7 @@ final class SingleAPODContentView: UIView {
         let textHeight = self.explanationTextView.contentSize.height
         self.explanationTextView.frame.size.height = textHeight
         let difference = self.explanationTextView.frame.size.height - (self.frame.size.height - self.explanationTextView.frame.origin.y)
-        self.frame.size.height += difference + saveButton.frame.size.height + 2 * AppConstants.LayoutConstants.commonSpacingOffset
+        self.frame.size.height += difference + saveOrDeleteButton.frame.size.height + 2 * AppConstants.LayoutConstants.commonSpacingOffset
     }
     
     private func addSubviews() {
@@ -84,7 +95,7 @@ final class SingleAPODContentView: UIView {
         self.addSubview(self.imageView)
         self.addSubview(self.saveHDImageButton)
         self.addSubview(self.explanationTextView)
-        self.addSubview(self.saveButton)
+        self.addSubview(self.saveOrDeleteButton)
     }
     
     private func setupSubviews() {
@@ -131,7 +142,7 @@ final class SingleAPODContentView: UIView {
             make.height.greaterThanOrEqualTo(1)
         }
         
-        self.saveButton.snp.makeConstraints { make in
+        self.saveOrDeleteButton.snp.makeConstraints { make in
             make.top.equalTo(self.explanationTextView.snp.bottom).offset(commonSpacingOffset)
             make.centerX.equalToSuperview()
             make.height.equalTo(4 * hvConvUnit)

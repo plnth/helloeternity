@@ -7,15 +7,19 @@ class SavedViewModel {
     private let router: SingleAPODRouter.Routes
     
     private let storageProvider = StorageDataProvider.shared
-    private(set) var savedAPODs: [APOD] = []
+    var savedAPODs: [APOD] = [] {
+        didSet {
+            do {
+                self.savedAPODs = try self.storageProvider.fetchStoredAPODs()
+            } catch {
+                debugPrint(error)
+            }
+        }
+    }
     
     init(router: SingleAPODRouter.Routes) {
         self.router = router
-        do {
-            self.savedAPODs = try self.storageProvider.fetchStoredAPODs()
-        } catch {
-            debugPrint(error)
-        }
+        
     }
     
     func openSingleAPODModule(with title: String) {
