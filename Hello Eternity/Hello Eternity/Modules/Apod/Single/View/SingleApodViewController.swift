@@ -1,8 +1,8 @@
 import UIKit
 
-class SingleAPODViewController: UIViewController {
+class SingleApodViewController: UIViewController {
     
-    private let viewModel: SingleAPODViewModel
+    private let viewModel: SingleApodViewModel
     private let apodTitle: String
     
     private let contentScrollView: UIScrollView = {
@@ -15,13 +15,13 @@ class SingleAPODViewController: UIViewController {
         return scrollView
     }()
     
-    private var apodContentView: SingleAPODContentView?
+    private var apodContentView: SingleApodContentView?
     private let activityIndicator = UIActivityIndicatorView()
     
-    init(viewModel: SingleAPODViewModel) {
+    init(viewModel: SingleApodViewModel) {
         
         self.viewModel = viewModel
-        self.apodTitle = viewModel.fetchedAPOD?.title ?? ""
+        self.apodTitle = viewModel.fetchedApod?.title ?? ""
         
         super.init(nibName: nil, bundle: nil)
         
@@ -38,7 +38,7 @@ class SingleAPODViewController: UIViewController {
                 }
             }
         case .storage:
-            if !self.apodTitle.isEmpty, let apod = self.viewModel.fetchAPODFromStorage(for: self.apodTitle) {
+            if !self.apodTitle.isEmpty, let apod = self.viewModel.fetchApodFromStorage(for: self.apodTitle) {
                 self.createContentView(with: apod)
                 
                 if let data = self.viewModel.mediaData,
@@ -85,8 +85,8 @@ class SingleAPODViewController: UIViewController {
         }
     }
     
-    private func createContentView(with apodData: APOD) {
-        self.apodContentView = SingleAPODContentView(
+    private func createContentView(with apodData: Apod) {
+        self.apodContentView = SingleApodContentView(
             frame: UIScreen.main.bounds,
             title: apodData.title ?? "",
             date: apodData.date ?? "",
@@ -111,9 +111,9 @@ class SingleAPODViewController: UIViewController {
     private func addActions() {
         switch self.viewModel.configuration {
         case .network:
-            self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onSaveAPOD), for: .touchUpInside)
+            self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onSaveApod), for: .touchUpInside)
         case .storage:
-            self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onDeleteAPOD), for: .touchUpInside)
+            self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onDeleteApod), for: .touchUpInside)
         }
     }
     
@@ -133,11 +133,11 @@ class SingleAPODViewController: UIViewController {
         }
     }
     
-    @objc private func onSaveAPOD() {
-        self.viewModel.onSaveAPOD()
+    @objc private func onSaveApod() {
+        self.viewModel.onSaveApod()
     }
     
-    @objc private func onDeleteAPOD() {
-        self.viewModel.onDeleteAPOD()
+    @objc private func onDeleteApod() {
+        self.viewModel.onDeleteApod()
     }
 }

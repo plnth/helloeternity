@@ -1,8 +1,8 @@
 import UIKit
 
-class SavedViewController: UIViewController {
+class GroupedApodsViewController: UIViewController {
     
-    private let viewModel: SavedViewModel
+    private let viewModel: GroupedApodsViewModel
     
     private lazy var contentTableView: UITableView = {
         
@@ -21,16 +21,16 @@ class SavedViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Asset.peacockBlue.color
         view.addSubview(self.contentTableView)
-        self.contentTableView.register(SavedContentViewCell.self, forCellReuseIdentifier: SavedContentViewCell.reuseIdentifier)
+        self.contentTableView.register(GroupedApodsContentViewCell.self, forCellReuseIdentifier: GroupedApodsContentViewCell.reuseIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel.savedAPODs = []
+        self.viewModel.savedApods = []
         self.contentTableView.reloadData()
     }
     
-    init(viewModel: SavedViewModel) {
+    init(viewModel: GroupedApodsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
@@ -43,21 +43,21 @@ class SavedViewController: UIViewController {
 }
 
 //MARK: - UITableViewDelegate, UITableViewDataSource
-extension SavedViewController: UITableViewDelegate, UITableViewDataSource {
+extension GroupedApodsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.savedAPODs.count
+        return self.viewModel.savedApods.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedContentViewCell.reuseIdentifier, for: indexPath) as? SavedContentViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: GroupedApodsContentViewCell.reuseIdentifier, for: indexPath) as? GroupedApodsContentViewCell else {
             return UITableViewCell()
         }
-        cell.textLabel?.text = self.viewModel.savedAPODs[indexPath.row].title
+        cell.textLabel?.text = self.viewModel.savedApods[indexPath.row].title
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.viewModel.openSingleAPODModule(with: self.viewModel.savedAPODs[indexPath.row].title ?? "")
+        self.viewModel.openSingleApodModule(with: self.viewModel.savedApods[indexPath.row].title ?? "")
     }
 }

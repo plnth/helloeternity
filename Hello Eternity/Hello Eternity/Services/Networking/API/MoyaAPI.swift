@@ -11,9 +11,9 @@ final class MoyaAPI {
         var baseURL: URL {
             switch self {
             case .fetchTodayPictureInfo:
-                return APIConstants.APOD.basePlanetaryURL
+                return APIConstants.Apod.basePlanetaryURL
             case .fetchTodayPictureFromURL:
-                return APIConstants.APOD.baseImageURL
+                return APIConstants.Apod.baseImageURL
             }
         }
     

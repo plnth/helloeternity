@@ -1,13 +1,13 @@
 import Foundation
 
-protocol APODRoute {
+protocol ApodRoute {
     var apodTransition: Transition { get }
-    func openAPODModule()
+    func openApodModule()
 }
 
-extension APODRoute where Self: RouterProtocol {
-    func openAPODModule() {
-        let module = APODModule()
+extension ApodRoute where Self: RouterProtocol {
+    func openApodModule() {
+        let module = ApodModule()
         let transition = apodTransition
         module.router.openTransition = transition
         self.open(module.viewController, transition: transition)

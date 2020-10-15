@@ -2,40 +2,40 @@ import Foundation
 import Moya
 import CoreData
 
-class SingleAPODViewModel {
+class SingleApodViewModel {
     
-    private let router: APODRouter.Routes
-    weak var output: SingleAPODModuleOutput?
+    private let router: SingleApodRouter
+    weak var output: SingleApodModuleOutput?
     
     private let networkProvider = NetworkDataProvider()
     private let storageProvider = StorageDataProvider.shared
 
-    private(set) var fetchedAPOD: APOD?
+    private(set) var fetchedApod: Apod?
     
-    private(set) var configuration: SingleAPODModuleConfiguration
+    private(set) var configuration: SingleApodModuleConfiguration
     
     private(set) var mediaData: Data?
     
-    init(router: APODRouter.Routes, configuration: SingleAPODModuleConfiguration) {
+    init(router: SingleApodRouter, configuration: SingleApodModuleConfiguration) {
         self.router = router
         self.configuration = configuration
         
-        if case let SingleAPODModuleConfiguration.storage(title) = configuration {
-            self.fetchedAPOD = try? self.storageProvider.fetchAPODByTitle(title)
+        if case let SingleApodModuleConfiguration.storage(title) = configuration {
+            self.fetchedApod = try? self.storageProvider.fetchApodByTitle(title)
             self.mediaData = self.storageProvider.getMediaFileDataForTitle(title)
         }
     }
 
-    func fetchTodayPictureInfo(completion: @escaping ((Result<APOD, MoyaError>) -> Void)) {
+    func fetchTodayPictureInfo(completion: @escaping ((Result<Apod, MoyaError>) -> Void)) {
         
         self.networkProvider.performTodayPictureInfoRequest { result in
             let convertedResult = result.mapError { error in
                 return MoyaError.underlying(error, nil)
             }
-            .flatMap { apodFromAPI -> Result<APOD, MoyaError> in
+            .flatMap { apodFromAPI -> Result<Apod, MoyaError> in
                 
                 do {
-                    let apodItem = try self.storageProvider.newAPODItem()
+                    let apodItem = try self.storageProvider.newApodItem()
                     apodItem.date = apodFromAPI.date
                     apodItem.explanation = apodFromAPI.explanation
                     apodItem.hdurl = apodFromAPI.hdurl
@@ -51,7 +51,7 @@ class SingleAPODViewModel {
                     
                     apodItem.media = media
                     
-                    self.fetchedAPOD = apodItem
+                    self.fetchedApod = apodItem
                     
                     return .success(apodItem)
                 } catch {
@@ -65,7 +65,7 @@ class SingleAPODViewModel {
     }
     
     func fetchTodayPictureFromURL(pictureURL: String, completion: @escaping ((Result<Data, MoyaError>) -> Void)) {
-        let prefix = APIConstants.APOD.baseImageURL.absoluteString
+        let prefix = APIConstants.Apod.baseImageURL.absoluteString
         self.networkProvider.performTodayPictureFromURLRequest(pictureURL: pictureURL.deletingPrefix(prefix)) { [weak self] result in
             let convertedResult = result.mapError { error -> MoyaError in
                 return MoyaError.underlying(error, nil)
@@ -78,25 +78,25 @@ class SingleAPODViewModel {
         }
     }
     
-    func fetchAPODFromStorage(for title: String) -> APOD? {
-        let apod = try? self.storageProvider.fetchAPODByTitle(title)
+    func fetchApodFromStorage(for title: String) -> Apod? {
+        let apod = try? self.storageProvider.fetchApodByTitle(title)
         return apod
     }
     
-    func onSaveAPOD() {
-        if let apod = self.fetchedAPOD,
+    func onSaveApod() {
+        if let apod = self.fetchedApod,
            let media = apod.media,
            let data = self.mediaData {
-            self.storageProvider.saveAPOD(apod, withMedia: media, withData: data)
+            self.storageProvider.saveApod(apod, withMedia: media, withData: data)
         }
     }
     
-    func onDeleteAPOD() {
-        if let apod = self.fetchedAPOD {
-            self.storageProvider.deleteAPOD(apod)
+    func onDeleteApod() {
+        if let apod = self.fetchedApod {
+            self.storageProvider.deleteApod(apod)
             self.router.close()
         }
     }
 }
 
-extension SingleAPODViewModel: SingleAPODModuleInput {}
+extension SingleApodViewModel: SingleApodModuleInput {}

@@ -4,9 +4,9 @@
  */
 
 //Main menu
-"main_menu_APOD" = "NASA Astronomy Picture of the Day";
+"main_menu_Apod" = "NASA Astronomy Picture of the Day";
 
-//APOD
+//Apod
 "apod_save_HD_image" = "Save HD image to gallery";
 "apod_save" = "Save";
 "apod_delete" = "Delete";

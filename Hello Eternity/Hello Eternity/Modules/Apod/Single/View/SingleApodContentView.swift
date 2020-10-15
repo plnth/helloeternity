@@ -1,6 +1,6 @@
 import UIKit
 
-final class SingleAPODContentView: UIView {
+final class SingleApodContentView: UIView {
     
     private let activityIndicator = UIActivityIndicatorView()
     
@@ -66,10 +66,10 @@ final class SingleAPODContentView: UIView {
     
     private var isStored: Bool = false
     
-    convenience init(frame: CGRect, title: String, date: String, explanation: String, configuration: SingleAPODModuleConfiguration) {
+    convenience init(frame: CGRect, title: String, date: String, explanation: String, configuration: SingleApodModuleConfiguration) {
         self.init(frame: frame)
         
-        if case SingleAPODModuleConfiguration.storage = configuration {
+        if case SingleApodModuleConfiguration.storage = configuration {
             self.isStored = true
         }
         self.addSubviews()

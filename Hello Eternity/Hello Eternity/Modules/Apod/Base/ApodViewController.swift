@@ -1,23 +1,23 @@
 import UIKit
 
-class APODViewController: UITabBarController {
+class ApodViewController: UITabBarController {
     
-    private let viewModel: APODViewModel
+    private let viewModel: ApodViewModel
     
-    private lazy var todayController: SingleAPODViewController = {
+    private lazy var todayController: SingleApodViewController = {
         //TODO: naming
         let viewModel = self.viewModel.createTodayViewModel()
-        let vc = SingleAPODViewController(viewModel: viewModel)
+        let vc = SingleApodViewController(viewModel: viewModel)
         return vc
     }()
-    
-    private lazy var savedController: SavedViewController = {
+
+    private lazy var savedController: GroupedApodsViewController = {
         let viewModel = self.viewModel.createSavedViewModel()
-        let vc = SavedViewController(viewModel: viewModel)
+        let vc = GroupedApodsViewController(viewModel: viewModel)
         return vc
     }()
     
-    init(viewModel: APODViewModel) {
+    init(viewModel: ApodViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

@@ -1,6 +1,6 @@
 import UIKit
 
-final class SavedContentViewCell: UITableViewCell, ReusableView {
+final class GroupedApodsContentViewCell: UITableViewCell, ReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
