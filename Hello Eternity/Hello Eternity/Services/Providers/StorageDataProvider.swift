@@ -29,6 +29,7 @@ final class StorageDataProvider {
         
         do {
             let request = APOD.fetchRequest() as NSFetchRequest
+            request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
             let savedAPODs = try context.fetch(request)
             
             return savedAPODs
