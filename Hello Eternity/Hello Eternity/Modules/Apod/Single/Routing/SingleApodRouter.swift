@@ -2,9 +2,9 @@ import Foundation
 
 final class SingleApodRouter: Router<SingleApodViewController> {
     
-    let configuration: SingleApodModuleConfiguration
+    let configuration: ApodConfiguration
     
-    init(configuration: SingleApodModuleConfiguration) {
+    init(configuration: ApodConfiguration) {
         self.configuration = configuration
     }
 }

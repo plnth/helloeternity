@@ -4,6 +4,8 @@ class GroupedApodsViewModel {
     
     private let router: GroupedApodsRouter
     
+    private(set) var configuration: ApodConfiguration
+    
     private let storageProvider = StorageDataProvider.shared
     var savedApods: [Apod] = [] {
         didSet {
@@ -13,6 +15,7 @@ class GroupedApodsViewModel {
     
     init(router: GroupedApodsRouter) {
         self.router = router
+        self.configuration = router.configuration
         do {
             self.savedApods = try self.storageProvider.fetchStoredApods()
         } catch {

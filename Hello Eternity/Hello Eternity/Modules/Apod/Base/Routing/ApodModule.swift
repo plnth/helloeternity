@@ -8,7 +8,7 @@ final class ApodModule {
     
     init() {
         let todayApodModule = SingleApodModule(configuration: .network)
-        let savedApodModule = GroupedApodsModule()
+        let savedApodModule = GroupedApodsModule(configuration: .storage(""))
         
         let router = ApodRouter(
             todayApodRouter: todayApodModule.router,

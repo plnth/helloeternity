@@ -1,5 +1,10 @@
 import Foundation
 
+enum ApodConfiguration {
+    case network
+    case storage(String)
+}
+
 protocol ApodRoute {
     var apodTransition: Transition { get }
     func openApodModule()

@@ -66,10 +66,10 @@ final class SingleApodContentView: UIView {
     
     private var isStored: Bool = false
     
-    convenience init(frame: CGRect, title: String, date: String, explanation: String, configuration: SingleApodModuleConfiguration) {
+    convenience init(frame: CGRect, title: String, date: String, explanation: String, configuration: ApodConfiguration) {
         self.init(frame: frame)
         
-        if case SingleApodModuleConfiguration.storage = configuration {
+        if case ApodConfiguration.storage = configuration {
             self.isStored = true
         }
         self.addSubviews()

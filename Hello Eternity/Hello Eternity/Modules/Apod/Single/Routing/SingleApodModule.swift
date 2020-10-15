@@ -22,7 +22,7 @@ final class SingleApodModule {
     private let viewModel: SingleApodViewModel
     let viewController: SingleApodViewController
     
-    init(configuration: SingleApodModuleConfiguration) {
+    init(configuration: ApodConfiguration) {
         let router = SingleApodRouter(configuration: configuration)
         let viewModel = SingleApodViewModel(router: router, configuration: configuration)
         let viewController = SingleApodViewController(viewModel: viewModel)

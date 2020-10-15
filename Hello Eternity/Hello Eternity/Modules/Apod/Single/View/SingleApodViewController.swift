@@ -140,4 +140,8 @@ class SingleApodViewController: UIViewController {
     @objc private func onDeleteApod() {
         self.viewModel.onDeleteApod()
     }
+    
+    @objc private func onSearchForMoreApods() {
+        self.viewModel.onSearchForMoreApods(configuration: .network)
+    }
 }

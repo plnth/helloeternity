@@ -1,17 +1,12 @@
 import Foundation
 
-enum SingleApodModuleConfiguration {
-    case network
-    case storage(String)
-}
-
 protocol SingleApodRoute {
     var singleApodTransition: Transition { get }
-    func openSingleApodModule(configuration: SingleApodModuleConfiguration)
+    func openSingleApodModule(configuration: ApodConfiguration)
 }
 
 extension SingleApodRoute where Self: RouterProtocol {
-    func openSingleApodModule(configuration: SingleApodModuleConfiguration) {
+    func openSingleApodModule(configuration: ApodConfiguration) {
         let module = SingleApodModule(configuration: configuration)
         let transition = singleApodTransition
         module.router.openTransition = transition

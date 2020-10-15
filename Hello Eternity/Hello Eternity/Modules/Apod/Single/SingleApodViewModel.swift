@@ -12,15 +12,15 @@ class SingleApodViewModel {
 
     private(set) var fetchedApod: Apod?
     
-    private(set) var configuration: SingleApodModuleConfiguration
+    private(set) var configuration: ApodConfiguration
     
     private(set) var mediaData: Data?
     
-    init(router: SingleApodRouter, configuration: SingleApodModuleConfiguration) {
+    init(router: SingleApodRouter, configuration: ApodConfiguration) {
         self.router = router
         self.configuration = configuration
         
-        if case let SingleApodModuleConfiguration.storage(title) = configuration {
+        if case let ApodConfiguration.storage(title) = configuration {
             self.fetchedApod = try? self.storageProvider.fetchApodByTitle(title)
             self.mediaData = self.storageProvider.getMediaFileDataForTitle(title)
         }
@@ -96,6 +96,10 @@ class SingleApodViewModel {
             self.storageProvider.deleteApod(apod)
             self.router.close()
         }
+    }
+    
+    func onSearchForMoreApods(configuration: ApodConfiguration) {
+        self.router.openGropedApodsModule(configuration: configuration)
     }
 }
 

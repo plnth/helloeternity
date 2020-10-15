@@ -6,8 +6,9 @@ final class GroupedApodsModule {
     private let viewModel: GroupedApodsViewModel
     let viewController: GroupedApodsViewController
     
-    init() {
-        let router = GroupedApodsRouter()
+    
+    init(configuration: ApodConfiguration) {
+        let router = GroupedApodsRouter(configuration: configuration)
         let viewModel = GroupedApodsViewModel(router: router)
         let viewController = GroupedApodsViewController(viewModel: viewModel)
         
