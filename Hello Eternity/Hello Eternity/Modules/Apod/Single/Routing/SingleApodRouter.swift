@@ -7,7 +7,9 @@ final class SingleApodRouter: Router<SingleApodViewController> {
     init(configuration: SingleApodModuleConfiguration) {
         self.configuration = configuration
     }
-    
+}
+
+extension SingleApodRouter: SingleApodRoute {
     var singleApodTransition: Transition {
         return PushTransition()
     }
@@ -17,9 +19,5 @@ extension SingleApodRouter: GroupedApodsRoute {
     
     var groupedApodsTransition: Transition {
         return ModalTransition()
-    }
-    
-    func openGropedApodsModule() {
-        //TODO
     }
 }

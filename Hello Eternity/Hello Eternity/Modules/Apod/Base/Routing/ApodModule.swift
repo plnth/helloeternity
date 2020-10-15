@@ -7,11 +7,18 @@ final class ApodModule {
     let viewController: ApodViewController
     
     init() {
-        let router = ApodRouter()
+        let todayApodModule = SingleApodModule(configuration: .network)
+        let savedApodModule = GroupedApodsModule()
+        
+        let router = ApodRouter(
+            todayApodRouter: todayApodModule.router,
+            savedApodsRouter: savedApodModule.router
+        )
         let viewModel = ApodViewModel(router: router)
         let viewController = ApodViewController(viewModel: viewModel)
         
         router.viewController = viewController
+        router.setupApodTabs()
         self.router = router
         self.viewController = viewController
         self.viewModel = viewModel

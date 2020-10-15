@@ -93,7 +93,7 @@ class SingleApodViewController: UIViewController {
             explanation: apodData.explanation ?? "",
             configuration: self.viewModel.configuration
         )
-        debugPrint(NSHomeDirectory())
+        
         self.setupImageFromURL(apodData.url!) //TODO
         
         if let contentView = self.apodContentView {
