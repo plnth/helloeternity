@@ -138,7 +138,10 @@ class SingleApodViewController: UIViewController {
     
     private func addActions() {
         switch self.viewModel.configuration {
-        case .network, .search:
+        case .network:
+            self.parent?.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(onSearchForMoreApods)), animated: false)
+            self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onSaveApod), for: .touchUpInside)
+        case .search:
             self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onSaveApod), for: .touchUpInside)
         case .storage:
             self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onDeleteApod), for: .touchUpInside)
