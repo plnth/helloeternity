@@ -12,4 +12,8 @@
 "apod_delete" = "Delete";
 "apod_tab_today" = "Today";
 "apod_tab_saved" = "Saved";
+"apod_search_placeholder" = "Search by date";
+"apod_search_error_title" = "Sorry, there was an error";
+"apod_search_error_message" = "Please try again later";
+"apod_search_error_ok" = "OK";
 

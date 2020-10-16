@@ -21,8 +21,9 @@
 		062A3B64253072DB00B2A5D9 /* ApodDataFromAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B63253072DB00B2A5D9 /* ApodDataFromAPI.swift */; };
 		062A3B68253074C500B2A5D9 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B67253074C500B2A5D9 /* APIConstants.swift */; };
 		062A3B6B253076D400B2A5D9 /* NetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B6A253076D400B2A5D9 /* NetworkDataProvider.swift */; };
-		062A3B6F2530931200B2A5D9 /* PictureFromURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B6E2530931200B2A5D9 /* PictureFromURLRequest.swift */; };
+		062A3B6F2530931200B2A5D9 /* MediaFromURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B6E2530931200B2A5D9 /* MediaFromURLRequest.swift */; };
 		062A3B732530A03C00B2A5D9 /* String+deletingPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B722530A03C00B2A5D9 /* String+deletingPrefix.swift */; };
+		062C610E2539AEF900889A76 /* ApodForDateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C610D2539AEF900889A76 /* ApodForDateRequest.swift */; };
 		0671D1FB252EFB800087EC9F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0671D1FA252EFB800087EC9F /* Router.swift */; };
 		0671D1FE252EFB890087EC9F /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0671D1FD252EFB890087EC9F /* Animator.swift */; };
 		0671D203252EFBCC0087EC9F /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0671D202252EFBCC0087EC9F /* Transition.swift */; };
@@ -72,8 +73,9 @@
 		062A3B63253072DB00B2A5D9 /* ApodDataFromAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApodDataFromAPI.swift; sourceTree = "<group>"; };
 		062A3B67253074C500B2A5D9 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		062A3B6A253076D400B2A5D9 /* NetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataProvider.swift; sourceTree = "<group>"; };
-		062A3B6E2530931200B2A5D9 /* PictureFromURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureFromURLRequest.swift; sourceTree = "<group>"; };
+		062A3B6E2530931200B2A5D9 /* MediaFromURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFromURLRequest.swift; sourceTree = "<group>"; };
 		062A3B722530A03C00B2A5D9 /* String+deletingPrefix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+deletingPrefix.swift"; sourceTree = "<group>"; };
+		062C610D2539AEF900889A76 /* ApodForDateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApodForDateRequest.swift; sourceTree = "<group>"; };
 		0671D1FA252EFB800087EC9F /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		0671D1FD252EFB890087EC9F /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		0671D202252EFBCC0087EC9F /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
@@ -228,7 +230,8 @@
 		062A3B6D253092F400B2A5D9 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				062A3B6E2530931200B2A5D9 /* PictureFromURLRequest.swift */,
+				062A3B6E2530931200B2A5D9 /* MediaFromURLRequest.swift */,
+				062C610D2539AEF900889A76 /* ApodForDateRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -533,7 +536,7 @@
 				067EB8B8252F534900230739 /* SingleApodContentView.swift in Sources */,
 				06A4D148252F108A00543AB4 /* ApodViewModel.swift in Sources */,
 				0615D30425386997007C0896 /* GroupedApodsRoute.swift in Sources */,
-				062A3B6F2530931200B2A5D9 /* PictureFromURLRequest.swift in Sources */,
+				062A3B6F2530931200B2A5D9 /* MediaFromURLRequest.swift in Sources */,
 				067EB870252F2D0C00230739 /* AppConstants.swift in Sources */,
 				0671D209252EFBE40087EC9F /* ModalTransition.swift in Sources */,
 				0671D20E252F080A0087EC9F /* MainRouter.swift in Sources */,
@@ -542,6 +545,7 @@
 				067EB889252F43C500230739 /* Strings.swift in Sources */,
 				062A3B64253072DB00B2A5D9 /* ApodDataFromAPI.swift in Sources */,
 				062A3B592530719200B2A5D9 /* API.swift in Sources */,
+				062C610E2539AEF900889A76 /* ApodForDateRequest.swift in Sources */,
 				062A3B5D2530719F00B2A5D9 /* MoyaAPI.swift in Sources */,
 				0671D203252EFBCC0087EC9F /* Transition.swift in Sources */,
 				0671D206252EFBD70087EC9F /* PushTransition.swift in Sources */,

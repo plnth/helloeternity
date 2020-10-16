@@ -5,23 +5,23 @@ final class MoyaAPI {
     
     enum Endpoint: TargetType {
         
-        case fetchTodayPictureInfo
-        case fetchTodayPictureFromURL(PictureFromURLRequest)
+        case mediaFromURL(MediaFromURLRequest)
+        case apodForDate(ApodForDateRequest)
         
         var baseURL: URL {
             switch self {
-            case .fetchTodayPictureInfo:
+            case .apodForDate:
                 return APIConstants.Apod.basePlanetaryURL
-            case .fetchTodayPictureFromURL:
+            case .mediaFromURL:
                 return APIConstants.Apod.baseImageURL
             }
         }
     
         var path: String {
             switch self {
-            case .fetchTodayPictureInfo:
+            case .apodForDate:
                 return ""
-            case .fetchTodayPictureFromURL(let request):
+            case .mediaFromURL(let request):
                 return request.path
             }
         }
@@ -36,10 +36,13 @@ final class MoyaAPI {
     
         var task: Task {
             switch self {
-            case .fetchTodayPictureInfo:
-                //TODO: temporary stub until video handling is introduced
-                return .requestParameters(parameters: ["api_key" : "DEMO_KEY", "date": "2020-09-20"], encoding: URLEncoding())
-            case .fetchTodayPictureFromURL:
+            case .apodForDate(let request):
+                guard let date = request.date else {
+                    //TODO: temporary stub until video handling is introduced
+                    return .requestParameters(parameters: ["api_key" : "DEMO_KEY"], encoding: URLEncoding())
+                }
+                return .requestParameters(parameters: ["api_key" : "DEMO_KEY", "date" : date], encoding: URLEncoding())
+            case .mediaFromURL:
                 return .requestPlain
             }
         }

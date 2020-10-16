@@ -18,6 +18,17 @@ class SingleApodViewController: UIViewController {
     private var apodContentView: SingleApodContentView?
     private let activityIndicator = UIActivityIndicatorView()
     
+    //TODO: validation
+    private lazy var apodSearchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.barTintColor = Asset.skyBlue.color
+        searchBar.placeholder = L10n.apodSearchPlaceholder
+        searchBar.tintColor = Asset.deepBlue.color
+        searchBar.returnKeyType = .search
+        searchBar.delegate = self
+        return searchBar
+    }()
+    
     init(viewModel: SingleApodViewModel) {
         
         self.viewModel = viewModel
@@ -29,7 +40,7 @@ class SingleApodViewController: UIViewController {
     
         switch self.viewModel.configuration {
         case .network:
-            self.viewModel.fetchTodayPictureInfo { result in
+            self.viewModel.fetchApodData { result in
                 switch result {
                 case .success(let apodData):
                     self.createContentView(with: apodData)
@@ -46,6 +57,8 @@ class SingleApodViewController: UIViewController {
                     self.apodContentView?.updateImage(with: image)
                 }
             }
+        case .search:
+            self.view.addSubview(self.apodSearchBar)
         }
     }
     
@@ -62,13 +75,28 @@ class SingleApodViewController: UIViewController {
         self.activityIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
-        self.activityIndicator.startAnimating()
+        
+        if case ApodConfiguration.search = self.viewModel.configuration {
+            return
+        } else {
+            self.activityIndicator.startAnimating()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.contentScrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        if self.apodSearchBar.superview != nil { //TODO
+            self.apodSearchBar.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview()
+                
+                let navBarHeight = UIApplication.shared.statusBarFrame.size.height +
+                   (navigationController?.navigationBar.frame.height ?? 0.0)
+                make.top.equalToSuperview().inset(navBarHeight)
+            }
         }
     }
     
@@ -110,7 +138,7 @@ class SingleApodViewController: UIViewController {
     
     private func addActions() {
         switch self.viewModel.configuration {
-        case .network:
+        case .network, .search:
             self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onSaveApod), for: .touchUpInside)
         case .storage:
             self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onDeleteApod), for: .touchUpInside)
@@ -119,7 +147,7 @@ class SingleApodViewController: UIViewController {
     
     private func setupImageFromURL(_ url: String) {
 
-        self.viewModel.fetchTodayPictureFromURL(pictureURL: url) { [weak self] result in
+        self.viewModel.fetchApodMedia(fromURL: url) { [weak self] result in
             switch result {
             case .success(let imageData):
                 if let image = UIImage(data: imageData) {
@@ -142,6 +170,64 @@ class SingleApodViewController: UIViewController {
     }
     
     @objc private func onSearchForMoreApods() {
-        self.viewModel.onSearchForMoreApods(configuration: .network)
+        self.viewModel.onSearchForMoreApods(configuration: .search)
+    }
+}
+
+//MARK: - UISearchBarDelegate
+extension SingleApodViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let text = self.apodSearchBar.text, text.isEmpty {
+            self.clearContent()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = self.apodSearchBar.text else { return }
+        self.clearContent()
+        self.activityIndicator.startAnimating()
+        
+        self.viewModel.fetchApodData(forDate: text) { [weak self] result in
+            
+            guard let `self` = self else { return }
+            
+            switch result {
+            case .success(let apod):
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.apodSearchBar.resignFirstResponder()
+                    self.contentScrollView.snp.remakeConstraints { make in
+                        make.leading.trailing.bottom.equalToSuperview()
+                        make.top.equalTo(self.apodSearchBar.snp.bottom)
+                    }
+                    self.createContentView(with: apod)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.showFetchErrorMessage()
+                }
+                debugPrint(error)
+            }
+        }
+    }
+    
+    private func clearContent() {
+        self.apodContentView?.removeFromSuperview()
+        self.apodContentView = nil
+    }
+    
+    private func showFetchErrorMessage() {
+        let alert = UIAlertController(
+            title: L10n.apodSearchErrorTitle,
+            message: L10n.apodSearchErrorMessage,
+            preferredStyle: .alert
+        )
+        let action = UIAlertAction(title: L10n.apodSearchErrorOk, style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true) {
+            self.clearContent()
+        }
     }
 }

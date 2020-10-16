@@ -3,6 +3,7 @@ import Foundation
 enum ApodConfiguration {
     case network
     case storage(String)
+    case search
 }
 
 protocol ApodRoute {

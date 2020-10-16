@@ -25,10 +25,9 @@ class SingleApodViewModel {
             self.mediaData = self.storageProvider.getMediaFileDataForTitle(title)
         }
     }
-
-    func fetchTodayPictureInfo(completion: @escaping ((Result<Apod, MoyaError>) -> Void)) {
-        
-        self.networkProvider.performTodayPictureInfoRequest { result in
+    
+    func fetchApodData(forDate date: String? = nil, completion: @escaping (Result<Apod, MoyaError>) -> Void) {
+        self.networkProvider.performApodDataRequest(forDate: date) { result in
             let convertedResult = result.mapError { error in
                 return MoyaError.underlying(error, nil)
             }
@@ -59,14 +58,13 @@ class SingleApodViewModel {
                     return .failure(MoyaError.underlying(error, nil))
                 }
             }
-                
             completion(convertedResult)
         }
     }
     
-    func fetchTodayPictureFromURL(pictureURL: String, completion: @escaping ((Result<Data, MoyaError>) -> Void)) {
+    func fetchApodMedia(fromURL url: String, completion: @escaping ((Result<Data, MoyaError>) -> Void)) {
         let prefix = APIConstants.Apod.baseImageURL.absoluteString
-        self.networkProvider.performTodayPictureFromURLRequest(pictureURL: pictureURL.deletingPrefix(prefix)) { [weak self] result in
+        self.networkProvider.performApodMediaRequest(fromURL: url.deletingPrefix(prefix)) { [weak self] result in
             let convertedResult = result.mapError { error -> MoyaError in
                 return MoyaError.underlying(error, nil)
             }
@@ -99,7 +97,7 @@ class SingleApodViewModel {
     }
     
     func onSearchForMoreApods(configuration: ApodConfiguration) {
-        self.router.openGropedApodsModule(configuration: configuration)
+        self.router.openSingleApodModule(configuration: configuration)
     }
 }
 
