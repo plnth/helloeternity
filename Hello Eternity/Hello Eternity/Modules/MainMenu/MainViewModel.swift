@@ -8,7 +8,7 @@ final class MainViewModel {
         self.router = router
     }
     
-    func onOpedAPODModule() {
-        router.openAPODModule()
+    func onOpedApodModule() {
+        router.openApodModule()
     }
 }

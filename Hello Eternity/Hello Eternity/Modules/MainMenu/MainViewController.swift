@@ -41,8 +41,8 @@ class MainViewController: UIViewController {
     }
     
     //for test
-    @objc private func onShowAPOD() {
-        self.viewModel.onOpedAPODModule()
+    @objc private func onShowApod() {
+        self.viewModel.onOpedApodModule()
     }
 }
 
@@ -58,6 +58,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.viewModel.onOpedAPODModule()
+        self.viewModel.onOpedApodModule()
     }
 }

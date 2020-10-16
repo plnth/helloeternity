@@ -22,28 +22,29 @@ final class StorageDataProvider {
     
     private let mediaFilesProvider = MediaFilesProvider.default
     
-    func fetchStoredAPODs() throws -> [APOD] {
+    func fetchStoredApods() throws -> [Apod] {
         guard let context = self.context else {
             throw StorageProviderError.noContext
         }
         
         do {
-            let request = APOD.fetchRequest() as NSFetchRequest
-            let savedAPODs = try context.fetch(request)
+            let request = Apod.fetchRequest() as NSFetchRequest
+            request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+            let savedApods = try context.fetch(request)
             
-            return savedAPODs
+            return savedApods
         } catch {
             throw StorageProviderError.fetchFailed
         }
     }
     
-    func newAPODItem() throws -> APOD {
+    func newApodItem() throws -> Apod {
         
         guard let childContext = self.childContext else {
             throw StorageProviderError.noContext
         }
         
-        return APOD(context: childContext)
+        return Apod(context: childContext)
     }
     
     func newMediaItem() throws -> Media {
@@ -55,13 +56,13 @@ final class StorageDataProvider {
         return Media(context: childContext)
     }
     
-    func fetchAPODByTitle(_ title: String) throws -> APOD? {
+    func fetchApodByTitle(_ title: String) throws -> Apod? {
         
         guard let context = self.context else {
             throw StorageProviderError.noContext
         }
         
-        let request = APOD.fetchRequest() as NSFetchRequest
+        let request = Apod.fetchRequest() as NSFetchRequest
         let predicate = NSPredicate(format: "title CONTAINS %@", title)
         request.predicate = predicate
         
@@ -73,7 +74,7 @@ final class StorageDataProvider {
         }
     }
     
-    func saveAPOD(_ apod: APOD, withMedia media: Media, withData data: Data) {
+    func saveApod(_ apod: Apod, withMedia media: Media, withData data: Data) {
         let path = self.saveMediaData(media, data)
         apod.media?.filePath = path
         do {
@@ -96,7 +97,7 @@ final class StorageDataProvider {
         return self.mediaFilesProvider.getMediaFileDataForTitle(title)
     }
     
-    func deleteAPOD(_ apod: APOD) {
+    func deleteApod(_ apod: Apod) {
         self.context?.delete(apod)
         try? self.saveContext()
     }

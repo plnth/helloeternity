@@ -4,12 +4,16 @@
  */
 
 //Main menu
-"main_menu_APOD" = "NASA Astronomy Picture of the Day";
+"main_menu_Apod" = "NASA Astronomy Picture of the Day";
 
-//APOD
+//Apod
 "apod_save_HD_image" = "Save HD image to gallery";
 "apod_save" = "Save";
 "apod_delete" = "Delete";
 "apod_tab_today" = "Today";
 "apod_tab_saved" = "Saved";
+"apod_search_placeholder" = "Search by date";
+"apod_search_error_title" = "Sorry, there was an error";
+"apod_search_error_message" = "Please try again later";
+"apod_search_error_ok" = "OK";
 

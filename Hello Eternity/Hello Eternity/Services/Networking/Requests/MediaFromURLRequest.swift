@@ -1,5 +1,5 @@
 import Foundation
 
-struct PictureFromURLRequest {
+struct MediaFromURLRequest {
     let path: String
 }
