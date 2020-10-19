@@ -2,7 +2,6 @@ import UIKit
 import CoreData
 
 enum StorageProviderError: Error {
-    case noContext
     case fetchFailed
     case savingFailed
 }
@@ -11,26 +10,29 @@ final class StorageDataProvider {
     
     static let shared: StorageDataProvider = StorageDataProvider()
     
-    private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    private let context = CoreDataStack(modelName: "HelloEternityDataModel").managedContext
     
-    private lazy var childContext: NSManagedObjectContext? = {
-        guard let parentContext = self.context else { return nil }
+    private lazy var childContext: NSManagedObjectContext = {
         let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        childContext.parent = parentContext
+        childContext.parent = self.context
         return childContext
     }()
     
     private let mediaFilesProvider = MediaFilesProvider.default
     
     func fetchStoredApods() throws -> [Apod] {
-        guard let context = self.context else {
-            throw StorageProviderError.noContext
-        }
         
         do {
             let request = Apod.fetchRequest() as NSFetchRequest
-            request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-            let savedApods = try context.fetch(request)
+            let compareSelector = #selector(NSString.localizedStandardCompare(_:))
+            request.sortDescriptors = [
+                NSSortDescriptor(
+                    key: #keyPath(Apod.title),
+                    ascending: true,
+                    selector: compareSelector
+                )
+            ]
+            let savedApods = try self.context.fetch(request)
             
             return savedApods
         } catch {
@@ -40,34 +42,22 @@ final class StorageDataProvider {
     
     func newApodItem() throws -> Apod {
         
-        guard let childContext = self.childContext else {
-            throw StorageProviderError.noContext
-        }
-        
-        return Apod(context: childContext)
+        return Apod(context: self.childContext)
     }
     
     func newMediaItem() throws -> Media {
         
-        guard let childContext = self.childContext else {
-            throw StorageProviderError.noContext
-        }
-        
-        return Media(context: childContext)
+        return Media(context: self.childContext)
     }
     
     func fetchApodByTitle(_ title: String) throws -> Apod? {
-        
-        guard let context = self.context else {
-            throw StorageProviderError.noContext
-        }
         
         let request = Apod.fetchRequest() as NSFetchRequest
         let predicate = NSPredicate(format: "title CONTAINS %@", title)
         request.predicate = predicate
         
         do {
-            let apod = try context.fetch(request).first
+            let apod = try self.context.fetch(request).first
             return apod
         } catch {
             throw StorageProviderError.fetchFailed
@@ -78,7 +68,7 @@ final class StorageDataProvider {
         let path = self.saveMediaData(media, data)
         apod.media?.filePath = path
         do {
-            try self.childContext?.save()
+            try self.childContext.save()
             try self.saveContext()
         } catch {
             debugPrint(error)
@@ -98,13 +88,13 @@ final class StorageDataProvider {
     }
     
     func deleteApod(_ apod: Apod) {
-        self.context?.delete(apod)
+        self.context.delete(apod)
         try? self.saveContext()
     }
     
     func saveContext() throws {
         do {
-            try self.context?.save()
+            try self.context.save()
         } catch {
             throw StorageProviderError.savingFailed
         }

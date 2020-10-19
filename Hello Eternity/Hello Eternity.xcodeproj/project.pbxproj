@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0607C91C2535A72C0009A476 /* StorageDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0607C91B2535A72C0009A476 /* StorageDataProvider.swift */; };
+		0609A64E253DF72300E2134A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0609A64D253DF72300E2134A /* CoreDataStack.swift */; };
 		0615D30425386997007C0896 /* GroupedApodsRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0615D30325386997007C0896 /* GroupedApodsRoute.swift */; };
 		0615D30725386AA0007C0896 /* GroupedApodsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0615D30625386AA0007C0896 /* GroupedApodsRouter.swift */; };
 		0615D30F25388168007C0896 /* GroupedApodsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0615D30E25388168007C0896 /* GroupedApodsModule.swift */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		0607C91B2535A72C0009A476 /* StorageDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageDataProvider.swift; sourceTree = "<group>"; };
+		0609A64D253DF72300E2134A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		0615D30325386997007C0896 /* GroupedApodsRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedApodsRoute.swift; sourceTree = "<group>"; };
 		0615D30625386AA0007C0896 /* GroupedApodsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedApodsRouter.swift; sourceTree = "<group>"; };
 		0615D30E25388168007C0896 /* GroupedApodsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedApodsModule.swift; sourceTree = "<group>"; };
@@ -134,6 +136,14 @@
 				06DBC44E2535BF38009818B8 /* MediaFilesProvider.swift */,
 			);
 			path = Providers;
+			sourceTree = "<group>";
+		};
+		0609A650253DF9D500E2134A /* CoreDataStack */ = {
+			isa = PBXGroup;
+			children = (
+				0609A64D253DF72300E2134A /* CoreDataStack.swift */,
+			);
+			path = CoreDataStack;
 			sourceTree = "<group>";
 		};
 		0615D3222538838C007C0896 /* Routing */ = {
@@ -317,6 +327,7 @@
 		067EB88E252F480A00230739 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0609A650253DF9D500E2134A /* CoreDataStack */,
 				0607C91A2535A7120009A476 /* Providers */,
 				062A3B572530716D00B2A5D9 /* Networking */,
 			);
@@ -563,6 +574,7 @@
 				061D561925346005003E3E03 /* SingleApodRouter.swift in Sources */,
 				0671D1FB252EFB800087EC9F /* Router.swift in Sources */,
 				06C257BE252CB95F00ABA929 /* MainViewController.swift in Sources */,
+				0609A64E253DF72300E2134A /* CoreDataStack.swift in Sources */,
 				061D55FD253436FA003E3E03 /* HelloEternityDataModel.xcdatamodeld in Sources */,
 				067E4341252F09A00033F6E2 /* MainViewModel.swift in Sources */,
 				067E4345252F0A610033F6E2 /* ApodRoute.swift in Sources */,
