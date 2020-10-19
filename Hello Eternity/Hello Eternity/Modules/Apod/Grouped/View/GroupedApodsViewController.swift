@@ -26,6 +26,7 @@ class GroupedApodsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.parent?.navigationItem.rightBarButtonItem = nil
         self.viewModel.savedApods = []
         self.contentTableView.reloadData()
     }
