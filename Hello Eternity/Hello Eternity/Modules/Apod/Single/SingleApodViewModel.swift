@@ -31,7 +31,9 @@ class SingleApodViewModel {
             let convertedResult = result.mapError { error in
                 return MoyaError.underlying(error, nil)
             }
-            .flatMap { apodFromAPI -> Result<Apod, MoyaError> in
+            .flatMap { [weak self] apodFromAPI -> Result<Apod, MoyaError> in
+                
+                guard let `self` = self else { return .failure(MoyaError.underlying(NetworkDataProviderError.underlying, nil)) }
                 
                 do {
                     let apodItem = try self.storageProvider.newApodItem()
@@ -64,11 +66,11 @@ class SingleApodViewModel {
     
     func fetchApodMedia(fromURL url: String, completion: @escaping ((Result<Data, MoyaError>) -> Void)) {
         let prefix = APIConstants.Apod.baseImageURL.absoluteString
-        self.networkProvider.performApodMediaRequest(fromURL: url.deletingPrefix(prefix)) { [weak self] result in
+        self.networkProvider.performApodMediaRequest(fromURL: url.deletingPrefix(prefix)) { result in
             let convertedResult = result.mapError { error -> MoyaError in
                 return MoyaError.underlying(error, nil)
             }
-            .flatMap { imageData -> Result<Data, MoyaError> in
+            .flatMap { [weak self] imageData -> Result<Data, MoyaError> in
                 self?.mediaData = imageData
                 return .success(imageData)
             }
