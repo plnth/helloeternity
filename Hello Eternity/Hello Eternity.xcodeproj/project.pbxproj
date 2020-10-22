@@ -17,6 +17,12 @@
 		061D561325345ED9003E3E03 /* SingleApodRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D561225345ED9003E3E03 /* SingleApodRoute.swift */; };
 		061D561625345F9B003E3E03 /* SingleApodModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D561525345F9B003E3E03 /* SingleApodModule.swift */; };
 		061D561925346005003E3E03 /* SingleApodRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D561825346005003E3E03 /* SingleApodRouter.swift */; };
+		0629D4762541727000C65D3A /* DatePickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629D4752541727000C65D3A /* DatePickerViewDelegate.swift */; };
+		0629D4792541729A00C65D3A /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629D4782541729A00C65D3A /* DatePickerViewController.swift */; };
+		0629D47C254172B700C65D3A /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629D47B254172B700C65D3A /* DatePickerView.swift */; };
+		0629D47F254172C900C65D3A /* DatePickerToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629D47E254172C900C65D3A /* DatePickerToolBar.swift */; };
+		0629D48325418C7300C65D3A /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629D48225418C7300C65D3A /* Popup.swift */; };
+		0629D4862541A0F900C65D3A /* PopupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629D4852541A0F900C65D3A /* PopupPresenter.swift */; };
 		062A3B592530719200B2A5D9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B582530719200B2A5D9 /* API.swift */; };
 		062A3B5D2530719F00B2A5D9 /* MoyaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B5C2530719F00B2A5D9 /* MoyaAPI.swift */; };
 		062A3B64253072DB00B2A5D9 /* ApodDataFromAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A3B63253072DB00B2A5D9 /* ApodDataFromAPI.swift */; };
@@ -70,6 +76,12 @@
 		061D561225345ED9003E3E03 /* SingleApodRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleApodRoute.swift; sourceTree = "<group>"; };
 		061D561525345F9B003E3E03 /* SingleApodModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleApodModule.swift; sourceTree = "<group>"; };
 		061D561825346005003E3E03 /* SingleApodRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleApodRouter.swift; sourceTree = "<group>"; };
+		0629D4752541727000C65D3A /* DatePickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewDelegate.swift; sourceTree = "<group>"; };
+		0629D4782541729A00C65D3A /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		0629D47B254172B700C65D3A /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		0629D47E254172C900C65D3A /* DatePickerToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerToolBar.swift; sourceTree = "<group>"; };
+		0629D48225418C7300C65D3A /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
+		0629D4852541A0F900C65D3A /* PopupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPresenter.swift; sourceTree = "<group>"; };
 		062A3B582530719200B2A5D9 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		062A3B5C2530719F00B2A5D9 /* MoyaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaAPI.swift; sourceTree = "<group>"; };
 		062A3B63253072DB00B2A5D9 /* ApodDataFromAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApodDataFromAPI.swift; sourceTree = "<group>"; };
@@ -219,6 +231,35 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		0629D4742541725300C65D3A /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				0629D4882541ABA200C65D3A /* Popup */,
+				0629D4892541ABBA00C65D3A /* DatePickerView */,
+				0629D4752541727000C65D3A /* DatePickerViewDelegate.swift */,
+				0629D4782541729A00C65D3A /* DatePickerViewController.swift */,
+			);
+			path = DatePicker;
+			sourceTree = "<group>";
+		};
+		0629D4882541ABA200C65D3A /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				0629D4852541A0F900C65D3A /* PopupPresenter.swift */,
+				0629D48225418C7300C65D3A /* Popup.swift */,
+			);
+			path = Popup;
+			sourceTree = "<group>";
+		};
+		0629D4892541ABBA00C65D3A /* DatePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				0629D47E254172C900C65D3A /* DatePickerToolBar.swift */,
+				0629D47B254172B700C65D3A /* DatePickerView.swift */,
+			);
+			path = DatePickerView;
+			sourceTree = "<group>";
+		};
 		062A3B572530716D00B2A5D9 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +340,7 @@
 		067EB86E252F2CE900230739 /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
+				0629D4742541725300C65D3A /* DatePicker */,
 				067EB86F252F2D0C00230739 /* AppConstants.swift */,
 				062A3B67253074C500B2A5D9 /* APIConstants.swift */,
 			);
@@ -550,6 +592,7 @@
 				062A3B6F2530931200B2A5D9 /* MediaFromURLRequest.swift in Sources */,
 				067EB870252F2D0C00230739 /* AppConstants.swift in Sources */,
 				0671D209252EFBE40087EC9F /* ModalTransition.swift in Sources */,
+				0629D47C254172B700C65D3A /* DatePickerView.swift in Sources */,
 				0671D20E252F080A0087EC9F /* MainRouter.swift in Sources */,
 				06A4D14B252F117B00543AB4 /* ApodRouter.swift in Sources */,
 				0615D30F25388168007C0896 /* GroupedApodsModule.swift in Sources */,
@@ -565,6 +608,7 @@
 				06A4D14E252F119800543AB4 /* ApodViewController.swift in Sources */,
 				0671D1FE252EFB890087EC9F /* Animator.swift in Sources */,
 				067EB8AA252F4DD700230739 /* SingleApodViewController.swift in Sources */,
+				0629D48325418C7300C65D3A /* Popup.swift in Sources */,
 				067EB88B252F43C500230739 /* Colors.swift in Sources */,
 				061D561325345ED9003E3E03 /* SingleApodRoute.swift in Sources */,
 				062A3B732530A03C00B2A5D9 /* String+deletingPrefix.swift in Sources */,
@@ -574,15 +618,19 @@
 				061D561925346005003E3E03 /* SingleApodRouter.swift in Sources */,
 				0671D1FB252EFB800087EC9F /* Router.swift in Sources */,
 				06C257BE252CB95F00ABA929 /* MainViewController.swift in Sources */,
+				0629D47F254172C900C65D3A /* DatePickerToolBar.swift in Sources */,
 				0609A64E253DF72300E2134A /* CoreDataStack.swift in Sources */,
+				0629D4762541727000C65D3A /* DatePickerViewDelegate.swift in Sources */,
 				061D55FD253436FA003E3E03 /* HelloEternityDataModel.xcdatamodeld in Sources */,
 				067E4341252F09A00033F6E2 /* MainViewModel.swift in Sources */,
 				067E4345252F0A610033F6E2 /* ApodRoute.swift in Sources */,
 				061D560A2534535D003E3E03 /* GroupedApodsContentView.swift in Sources */,
+				0629D4862541A0F900C65D3A /* PopupPresenter.swift in Sources */,
 				06B69ADC252E0E8D00CE87DA /* MainCollectionView.swift in Sources */,
 				067EB8B0252F4E5100230739 /* SingleApodViewModel.swift in Sources */,
 				0607C91C2535A72C0009A476 /* StorageDataProvider.swift in Sources */,
 				067EB8B3252F4E6E00230739 /* GroupedApodsViewModel.swift in Sources */,
+				0629D4792541729A00C65D3A /* DatePickerViewController.swift in Sources */,
 				062A3B68253074C500B2A5D9 /* APIConstants.swift in Sources */,
 				067EB88A252F43C500230739 /* Assets.swift in Sources */,
 				06DBC44F2535BF38009818B8 /* MediaFilesProvider.swift in Sources */,
