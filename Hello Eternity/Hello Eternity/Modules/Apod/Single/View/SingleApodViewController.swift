@@ -18,16 +18,18 @@ class SingleApodViewController: UIViewController {
     private var apodContentView: SingleApodContentView?
     private let activityIndicator = UIActivityIndicatorView()
     
-    //TODO: validation
-    private lazy var apodSearchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.barTintColor = Asset.skyBlue.color
-        searchBar.placeholder = L10n.apodSearchPlaceholder
-        searchBar.tintColor = Asset.deepBlue.color
-        searchBar.returnKeyType = .search
-        searchBar.delegate = self
-        return searchBar
+    private lazy var apodSearchTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = Asset.skyBlue.color
+        textField.textColor = Asset.deepBlue.color
+        textField.placeholder = L10n.apodSearchPlaceholder
+        textField.borderStyle = .roundedRect
+        textField.clearButtonMode = .always
+        textField.delegate = self
+        return textField
     }()
+    
+    private var didLoadMedia: Bool = false
     
     init(viewModel: SingleApodViewModel) {
         
@@ -58,7 +60,7 @@ class SingleApodViewController: UIViewController {
                 }
             }
         case .search:
-            self.view.addSubview(self.apodSearchBar)
+            self.view.addSubview(self.apodSearchTextField)
         }
     }
     
@@ -89,27 +91,33 @@ class SingleApodViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        if self.apodSearchBar.superview != nil { //TODO
-            self.apodSearchBar.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview()
+        if self.apodSearchTextField.superview != nil { //TODO
+            self.apodSearchTextField.snp.makeConstraints { make in
+                let insetValue = AppConstants.LayoutConstants.commonLeadingTrailingInset
+                make.leading.trailing.equalToSuperview().inset(insetValue)
                 
                 let navBarHeight = UIApplication.shared.statusBarFrame.size.height +
-                   (navigationController?.navigationBar.frame.height ?? 0.0)
-                make.top.equalToSuperview().inset(navBarHeight)
+                    (navigationController?.navigationBar.frame.height ?? 0.0)
+                make.top.equalToSuperview().inset(navBarHeight + insetValue)
             }
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+        
+        if case ApodConfiguration.network = self.viewModel.configuration {
+            self.parent?.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(onSearchForMoreApods)), animated: false)
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let contentView = self.apodContentView {
-            let bottomOffset: CGFloat = self.tabBarController?.tabBar.frame.size.height ?? 2 *  AppConstants.LayoutConstants.commonSpacingOffset
             self.contentScrollView.contentSize = contentView.frame.size
-            self.contentScrollView.contentSize.height += bottomOffset
+            
+            if self.didLoadMedia {
+                let bottomOffset: CGFloat = self.tabBarController?.tabBar.frame.size.height ?? 0.0
+                let navBarHeight = UIApplication.shared.statusBarFrame.size.height +
+                    (navigationController?.navigationBar.frame.height ?? 0.0)
+                self.contentScrollView.contentSize.height += bottomOffset + navBarHeight + 2 *  AppConstants.LayoutConstants.commonSpacingOffset
+            }
         }
     }
     
@@ -138,10 +146,7 @@ class SingleApodViewController: UIViewController {
     
     private func addActions() {
         switch self.viewModel.configuration {
-        case .network:
-            self.parent?.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(onSearchForMoreApods)), animated: false)
-            self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onSaveApod), for: .touchUpInside)
-        case .search:
+        case .network, .search:
             self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onSaveApod), for: .touchUpInside)
         case .storage:
             self.apodContentView?.saveOrDeleteButton.addTarget(self, action: #selector(self.onDeleteApod), for: .touchUpInside)
@@ -149,13 +154,14 @@ class SingleApodViewController: UIViewController {
     }
     
     private func setupImageFromURL(_ url: String) {
-
+        
         self.viewModel.fetchApodMedia(fromURL: url) { [weak self] result in
             switch result {
             case .success(let imageData):
                 if let image = UIImage(data: imageData) {
                     DispatchQueue.main.async {
                         self?.apodContentView?.updateImage(with: image)
+                        self?.didLoadMedia = true
                     }
                 }
             case .failure(let error):
@@ -177,17 +183,41 @@ class SingleApodViewController: UIViewController {
     }
 }
 
-//MARK: - UISearchBarDelegate
-extension SingleApodViewController: UISearchBarDelegate {
+//MARK: - UITextFieldDelegate
+extension SingleApodViewController: UITextFieldDelegate {
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if let text = self.apodSearchBar.text, text.isEmpty {
-            self.clearContent()
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        guard let text = textField.text else {
+            self.addDatePicker()
+            return
+        }
+        
+        if text.isEmpty {
+            self.addDatePicker()
         }
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = self.apodSearchBar.text else { return }
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        self.clearContent()
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
+    }
+    
+    private func addDatePicker() {
+        self.view.endEditing(true)
+        let pickerController = DatePickerViewController()
+        pickerController.delegate = self
+        self.presentPopup(viewController: pickerController)
+    }
+    
+    private func searchForApod() {
+        
+        guard let text = self.apodSearchTextField.text else { return }
+        
         self.clearContent()
         self.activityIndicator.startAnimating()
         
@@ -199,10 +229,10 @@ extension SingleApodViewController: UISearchBarDelegate {
             case .success(let apod):
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
-                    self.apodSearchBar.resignFirstResponder()
+                    self.apodSearchTextField.resignFirstResponder()
                     self.contentScrollView.snp.remakeConstraints { make in
                         make.leading.trailing.bottom.equalToSuperview()
-                        make.top.equalTo(self.apodSearchBar.snp.bottom)
+                        make.top.equalTo(self.apodSearchTextField.snp.bottom)
                     }
                     self.createContentView(with: apod)
                 }
@@ -217,6 +247,7 @@ extension SingleApodViewController: UISearchBarDelegate {
     }
     
     private func clearContent() {
+        self.apodSearchTextField.resignFirstResponder()
         self.apodContentView?.removeFromSuperview()
         self.apodContentView = nil
     }
@@ -231,6 +262,36 @@ extension SingleApodViewController: UISearchBarDelegate {
         alert.addAction(action)
         self.present(alert, animated: true) {
             self.clearContent()
+        }
+    }
+}
+
+//MARK: - DatePickerViewDelegate
+extension SingleApodViewController: DatePickerViewDelegate {
+    func datePicker(_ picker: DatePickerView, didSelectDate: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: didSelectDate)
+        //TODO
+        self.apodSearchTextField.text = dateString
+        self.apodSearchTextField.resignFirstResponder()
+        self.searchForApod()
+    }
+    
+    func datePickerDidCancel(_ picker: DatePickerView) {
+        self.apodSearchTextField.resignFirstResponder()
+    }
+}
+
+//MARK: - PopupPresenter
+extension SingleApodViewController: PopupPresenter {
+    func presentPopup(viewController: UIViewController) {
+        
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let `self` = self else { return }
+            
+            Popup.show(viewController, on: self)
         }
     }
 }

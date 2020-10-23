@@ -1,6 +1,10 @@
 import Foundation
 import Moya
 
+enum NetworkDataProviderError: Error {
+    case underlying
+}
+
 class NetworkDataProvider {
     
     private let provider = MoyaProvider<MoyaAPI.Endpoint>()

@@ -17,3 +17,6 @@
 "apod_search_error_message" = "Please try again later";
 "apod_search_error_ok" = "OK";
 
+//Common
+"cancel" = "Cancel";
+"done" = "Done";
