@@ -24,7 +24,7 @@ final class DatePickerView: UIView {
     
     lazy var pickerView: UIDatePicker = {
         let pickerView = UIDatePicker()
-        pickerView.backgroundColor = Asset.skyBlue.color
+        pickerView.backgroundColor = .white
         pickerView.datePickerMode = .date
         if #available(iOS 13.4, *) {
             pickerView.preferredDatePickerStyle = .wheels
@@ -49,7 +49,7 @@ final class DatePickerView: UIView {
         self.addSubview(self.pickerView)
         
         self.datePickerToolBar.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
             let height = UIApplication.shared.statusBarFrame.height
             make.height.equalTo(height)
         }
@@ -57,6 +57,7 @@ final class DatePickerView: UIView {
         self.pickerView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(self.datePickerToolBar.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview().inset(AppConstants.LayoutConstants.commonLeadingTrailingInset)
         }
     }
 }
