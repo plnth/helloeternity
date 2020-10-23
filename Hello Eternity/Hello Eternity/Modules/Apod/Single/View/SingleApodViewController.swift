@@ -29,6 +29,8 @@ class SingleApodViewController: UIViewController {
         return textField
     }()
     
+    private var didLoadMedia: Bool = false
+    
     init(viewModel: SingleApodViewModel) {
         
         self.viewModel = viewModel
@@ -108,9 +110,14 @@ class SingleApodViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let contentView = self.apodContentView {
-            let bottomOffset: CGFloat = self.tabBarController?.tabBar.frame.size.height ?? 2 *  AppConstants.LayoutConstants.commonSpacingOffset
             self.contentScrollView.contentSize = contentView.frame.size
-            self.contentScrollView.contentSize.height += bottomOffset
+            
+            if self.didLoadMedia {
+                let bottomOffset: CGFloat = self.tabBarController?.tabBar.frame.size.height ?? 0.0
+                let navBarHeight = UIApplication.shared.statusBarFrame.size.height +
+                    (navigationController?.navigationBar.frame.height ?? 0.0)
+                self.contentScrollView.contentSize.height += bottomOffset + navBarHeight + 2 *  AppConstants.LayoutConstants.commonSpacingOffset
+            }
         }
     }
     
@@ -154,6 +161,7 @@ class SingleApodViewController: UIViewController {
                 if let image = UIImage(data: imageData) {
                     DispatchQueue.main.async {
                         self?.apodContentView?.updateImage(with: image)
+                        self?.didLoadMedia = true
                     }
                 }
             case .failure(let error):
