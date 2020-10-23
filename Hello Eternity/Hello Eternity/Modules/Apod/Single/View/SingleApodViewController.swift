@@ -179,15 +179,9 @@ class SingleApodViewController: UIViewController {
 extension SingleApodViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.addDatePicker()
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.resignFirstResponder()
-    }
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
+        
         guard let text = textField.text else {
+            self.addDatePicker()
             return
         }
         
@@ -196,7 +190,17 @@ extension SingleApodViewController: UITextFieldDelegate {
         }
     }
     
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        self.clearContent()
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
+    }
+    
     private func addDatePicker() {
+        self.view.endEditing(true)
         let pickerController = DatePickerViewController()
         pickerController.delegate = self
         self.presentPopup(viewController: pickerController)
@@ -267,7 +271,7 @@ extension SingleApodViewController: DatePickerViewDelegate {
     }
     
     func datePickerDidCancel(_ picker: DatePickerView) {
-        debugPrint("cancelled")
+        self.apodSearchTextField.resignFirstResponder()
     }
 }
 
