@@ -90,6 +90,6 @@ fastlane/test_output
 iOSInjectionProject/
 
 # Ignore Generated 
-Hello\ Eternity/Hello\ Eternity/Generated
+# Hello\ Eternity/Hello\ Eternity/Generated
 Hello\ Eternity/Hello\ Eternity.xcworkspace
 Hello\ Eternity/Pods
